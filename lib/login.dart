@@ -70,7 +70,7 @@ Future<void> signInWithGoogle() async {
 
   // Once signed in, return the UserCredential
   await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
-    debugPrint(value.user?.email);
+    debugPrint('####email : ${value.user?.email}');
   }).onError((error, stackTrace) {
     debugPrint('error : $error');
   });
