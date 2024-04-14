@@ -38,13 +38,18 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 child: TextFormField(
                   controller: _queryTextEditingController,
                   decoration: InputDecoration(
-                    hintText: 'github 계정을 입력하세요',
+                    hintText: '"Owner" or "Owner/Repository"',
                     hintStyle: TextStyle(color: Colors.blue[400]),
                     border: const OutlineInputBorder(),
                     focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     suffix: ElevatedButton(
                       onPressed: () {
                         // 버튼 클릭 시 처리
+                        print(_queryTextEditingController.text);
+                        print(_queryTextEditingController.text.contains('/'));
+                        !_queryTextEditingController.text.contains('/')
+                            ? viewModel.onSearch(_queryTextEditingController.text, context)
+                            : viewModel.onSelectRepo(context, '${_queryTextEditingController.text.split('/')[0]}/${_queryTextEditingController.text.split('/')[1]}');
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
