@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_git_blog/presentation/post_list/post_list_screen.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -74,10 +73,10 @@ class _RepoListScreenState extends State<RepoListScreen> {
                         //     ),
                         //   ),
                         // );
-                        viewModel.onSelectRepo(context, '${_queryTextEditingController.text}/${e.name}');
+                        viewModel.onSelectRepo(context, '${_queryTextEditingController.text.split('/')[0]}/${e.name}');
                       },
                       child: Text(
-                        e.name.substring(0, e.name.length - 1),
+                        e.name,
                         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
