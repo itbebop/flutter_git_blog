@@ -6,10 +6,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final String clientId = 'YOUR_GITHUB_CLIENT_ID';
   final String clientSecret = 'YOUR_GITHUB_CLIENT_SECRET';
   final String redirectUri = 'YOUR_GITHUB_REDIRECT_URI';
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            _handleGitHubSignIn();
+            _handleGitHubSignIn;
           },
           child: const Text('GitHub으로 로그인'),
         ),
@@ -37,14 +37,14 @@ class _LoginPageState extends State<LoginPage> {
   void _handleGitHubSignIn() async {
     final authorizationUrl = 'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&scope=$scope';
 
-    if (await canLaunch(authorizationUrl)) {
-      await launch(authorizationUrl);
+    if (await launchUrl(Uri.parse(authorizationUrl))) {
+      await launchUrl(Uri.parse(authorizationUrl));
     } else {
       throw 'Could not launch $authorizationUrl';
     }
   }
 
-  Future<void> _onUrlChanged(Uri uri) async {
+  Future<void> onUrlChanged(Uri uri) async {
     if (uri.toString().startsWith(redirectUri)) {
       final code = uri.queryParameters['code'];
       if (code != null) {

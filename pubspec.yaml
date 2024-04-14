@@ -41,6 +41,14 @@ dependencies:
   google_sign_in: ^6.2.1
   url_launcher: ^6.2.6
   webview_flutter: 3.0.4
+  http: ^1.2.1
+  provider: ^6.1.2
+  build_runner: ^2.4.9
+  freezed: ^2.5.2
+  go_router: ^13.2.4
+  json_serializable: ^6.7.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:

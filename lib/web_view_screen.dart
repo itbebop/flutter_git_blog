@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_git_blog/login_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatelessWidget {
