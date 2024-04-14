@@ -45,8 +45,6 @@ class _RepoListScreenState extends State<RepoListScreen> {
                     suffix: ElevatedButton(
                       onPressed: () {
                         // 버튼 클릭 시 처리
-                        print(_queryTextEditingController.text);
-                        print(_queryTextEditingController.text.contains('/'));
                         !_queryTextEditingController.text.contains('/')
                             ? viewModel.onSearch(_queryTextEditingController.text, context)
                             : viewModel.onSelectRepo(context, '${_queryTextEditingController.text.split('/')[0]}/${_queryTextEditingController.text.split('/')[1]}');
@@ -70,14 +68,6 @@ class _RepoListScreenState extends State<RepoListScreen> {
                     height: 30,
                     child: GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PostListScreen(
-                        //       repo: e,
-                        //     ),
-                        //   ),
-                        // );
                         viewModel.onSelectRepo(context, '${_queryTextEditingController.text.split('/')[0]}/${e.name}');
                       },
                       child: Text(

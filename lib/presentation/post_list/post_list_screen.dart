@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_git_blog/data/model/repo.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 class PostListScreen extends StatefulWidget {
   final String repo;
@@ -11,8 +9,6 @@ class PostListScreen extends StatefulWidget {
 }
 
 class _PostListScreenState extends State<PostListScreen> {
-  final _queryTextEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
