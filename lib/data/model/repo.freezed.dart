@@ -22,6 +22,7 @@ Repo _$RepoFromJson(Map<String, dynamic> json) {
 mixin _$Repo {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   String get htmlUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $RepoCopyWith<$Res> {
   factory $RepoCopyWith(Repo value, $Res Function(Repo) then) =
       _$RepoCopyWithImpl<$Res, Repo>;
   @useResult
-  $Res call({int id, String name, String htmlUrl});
+  $Res call({int id, String name, String fullName, String htmlUrl});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$RepoCopyWithImpl<$Res, $Val extends Repo>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? fullName = null,
     Object? htmlUrl = null,
   }) {
     return _then(_value.copyWith(
@@ -62,6 +64,10 @@ class _$RepoCopyWithImpl<$Res, $Val extends Repo>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
@@ -78,7 +84,7 @@ abstract class _$$RepoImplCopyWith<$Res> implements $RepoCopyWith<$Res> {
       __$$RepoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String htmlUrl});
+  $Res call({int id, String name, String fullName, String htmlUrl});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$RepoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? fullName = null,
     Object? htmlUrl = null,
   }) {
     return _then(_$RepoImpl(
@@ -103,6 +110,10 @@ class __$$RepoImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
@@ -116,7 +127,10 @@ class __$$RepoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RepoImpl implements _Repo {
   const _$RepoImpl(
-      {required this.id, required this.name, required this.htmlUrl});
+      {required this.id,
+      required this.name,
+      required this.fullName,
+      required this.htmlUrl});
 
   factory _$RepoImpl.fromJson(Map<String, dynamic> json) =>
       _$$RepoImplFromJson(json);
@@ -126,11 +140,13 @@ class _$RepoImpl implements _Repo {
   @override
   final String name;
   @override
+  final String fullName;
+  @override
   final String htmlUrl;
 
   @override
   String toString() {
-    return 'Repo(id: $id, name: $name, htmlUrl: $htmlUrl)';
+    return 'Repo(id: $id, name: $name, fullName: $fullName, htmlUrl: $htmlUrl)';
   }
 
   @override
@@ -140,12 +156,14 @@ class _$RepoImpl implements _Repo {
             other is _$RepoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, htmlUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, fullName, htmlUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -165,6 +183,7 @@ abstract class _Repo implements Repo {
   const factory _Repo(
       {required final int id,
       required final String name,
+      required final String fullName,
       required final String htmlUrl}) = _$RepoImpl;
 
   factory _Repo.fromJson(Map<String, dynamic> json) = _$RepoImpl.fromJson;
@@ -173,6 +192,8 @@ abstract class _Repo implements Repo {
   int get id;
   @override
   String get name;
+  @override
+  String get fullName;
   @override
   String get htmlUrl;
   @override

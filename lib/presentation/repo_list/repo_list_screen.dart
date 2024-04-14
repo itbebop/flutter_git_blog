@@ -48,7 +48,8 @@ class _RepoListScreenState extends State<RepoListScreen> {
                         // 버튼 클릭 시 처리
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.blue, // 버튼 텍스트 색상
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue, // 버튼 텍스트 색상
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)), // 버튼 모양
                       ),
                       child: const Text('확인'),
@@ -56,20 +57,28 @@ class _RepoListScreenState extends State<RepoListScreen> {
                   ),
                   textInputAction: TextInputAction.search,
                   onFieldSubmitted: (String value) {
-                    viewModel.onSearch(value);
+                    viewModel.onSearch(value, context);
                   },
                 ),
               ),
               const SizedBox(height: 10),
-              ...viewModel.repo.map((e) => SizedBox(
+              ...viewModel.repos.map((e) => SizedBox(
                     height: 30,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PostListScreen()));
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PostListScreen(
+                        //       repo: e,
+                        //     ),
+                        //   ),
+                        // );
+                        viewModel.onSelectRepo(context, '${_queryTextEditingController.text}/${e.name}');
                       },
                       child: Text(
                         e.name.substring(0, e.name.length - 1),
-                        style: const TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
                   )),

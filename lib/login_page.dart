@@ -35,7 +35,8 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void _handleGitHubSignIn() async {
-    final authorizationUrl = 'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&scope=$scope';
+    final authorizationUrl =
+        'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&scope=$scope';
 
     if (await launchUrl(Uri.parse(authorizationUrl))) {
       await launchUrl(Uri.parse(authorizationUrl));

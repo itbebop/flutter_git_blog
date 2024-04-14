@@ -8,6 +8,7 @@ class Repo with _$Repo {
   const factory Repo({
     required int id,
     required String name,
+    required String fullName,
     required String htmlUrl,
   }) = _Repo;
 
