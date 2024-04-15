@@ -64,7 +64,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              ...viewModel.repos.map((e) => SizedBox(
+              ...viewModel.state.respos.map((e) => SizedBox(
                     height: 30,
                     child: GestureDetector(
                       onTap: () {
