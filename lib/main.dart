@@ -16,9 +16,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     home: ChangeNotifierProvider(
         create: (_) {
-          return PostListViewModel(
-              postRepositoryImpl:
-                  PostRepositoryImpl(postDataSource: GitDataSource()));
+          return RepoListViewModel(postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource()));
         },
         child: const RepoListScreen()),
   ));

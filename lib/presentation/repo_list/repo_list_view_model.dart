@@ -4,10 +4,10 @@ import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_screen.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_state.dart';
 
-class PostListViewModel with ChangeNotifier {
+class RepoListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
 
-  PostListViewModel({required PostRepositoryImpl postRepositoryImpl}) : _postRepositoryImpl = postRepositoryImpl;
+  RepoListViewModel({required PostRepositoryImpl postRepositoryImpl}) : _postRepositoryImpl = postRepositoryImpl;
   Repo? repo;
 
   RepoListState _state = const RepoListState();

@@ -13,7 +13,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
   final _queryTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<PostListViewModel>();
+    final viewModel = context.watch<RepoListViewModel>();
 
     return Scaffold(
       appBar: AppBar(
