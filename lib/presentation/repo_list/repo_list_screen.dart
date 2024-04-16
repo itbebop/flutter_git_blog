@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RepoListScreen extends StatefulWidget {
@@ -69,6 +70,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
                     child: GestureDetector(
                       onTap: () {
                         viewModel.onSelectRepo(context, '${_queryTextEditingController.text.split('/')[0]}/${e.name}');
+                        context.push('/post');
                       },
                       child: Text(
                         e.name,

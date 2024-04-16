@@ -3,6 +3,7 @@ import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_screen.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_state.dart';
+import 'package:provider/provider.dart';
 
 class RepoListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
@@ -26,7 +27,6 @@ class RepoListViewModel with ChangeNotifier {
         respos: await _postRepositoryImpl.getRepo(value),
         isLoading: false,
       );
-      //repos = await _postRepositoryImpl.getRepo(value);
     }
     notifyListeners();
   }
@@ -37,14 +37,6 @@ class RepoListViewModel with ChangeNotifier {
 
     List keys = value.split('/');
     _state = state.copyWith(isLoading: false);
-    _state = state.copyWith(isLoading: false, post: await _postRepositoryImpl.getDir(owner: keys[0], repo: keys[1]));
     notifyListeners();
-    //posts = await _postRepositoryImpl.getDir(owner: keys[0], repo: keys[1]);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PostListScreen(
-                  repo: keys[1],
-                )));
   }
 }
