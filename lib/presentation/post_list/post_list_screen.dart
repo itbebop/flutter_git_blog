@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -32,11 +33,9 @@ class _PostListScreenState extends State<PostListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            viewModel.totalPath,
-            style: const TextStyle(fontSize: 10),
-          ),
-        ),
+            title: TextWidget(
+          text: viewModel.totalPath,
+        )),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
