@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_git_blog/data/dto/post_dto/post_dto.dart';
+import 'package:flutter_git_blog/data/dto/repo_dto/repo_dto.dart';
+import 'package:flutter_git_blog/data/dto/user_dto/UserDto.dart';
+import 'package:flutter_git_blog/data/mapper/repo_mapper.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,17 +20,17 @@ Map<K, V> mergeMaps<K, V>(Map<K, V> map1, Map<K, V> map2, {V Function(V, V)? val
 class GitDataSource {
   final _baseUrl = 'https://api.github.com';
 
-  Future<List<Repo>> getRepo(String owner) async {
+  Future<List<RepoDto>> getRepo(String owner) async {
     // repo의
     final response = await http.get(Uri.parse('$_baseUrl/users/$owner/repos'));
 
     final List bodies = jsonDecode(response.body);
 
-    return bodies.map((e) => Repo.fromJson(e)).toList();
+    return bodies.map((e) => RepoDto.fromJson(e)).toList();
   }
 
-  Future<List<PostDto>> getDir({required String owner, required String repo}) async {
-    final response = await http.get(Uri.parse('$_baseUrl/repos/$owner/$repo/contents/'));
+  Future<List<PostDto>> getPath({required String owner, required String repo, String? path}) async {
+    final response = await http.get(Uri.parse('$_baseUrl/repos/$owner/$repo/contents/$path'));
     final List bodies = response.statusCode == 200 ? jsonDecode(response.body) : throw Exception('statusCode: ${response.statusCode}');
 
     return bodies.map((e) => PostDto.fromJson(e)).toList();
@@ -50,7 +53,15 @@ class GitDataSource {
     final PostDto result = PostDto.fromJson(combinedMap);
     return result;
   }
+
+  Future<UserDto> getUser(String user) async {
+    final response = await http.get(Uri.parse('$_baseUrl/users/$user'));
+    final jsonUser = await jsonDecode(response.body);
+
+    return UserDto.fromJson(jsonUser);
+  }
 }
+
 //TODO:오류 처리 어떻게 할지
 // main() {
 //   GitDataSource().getDir(owner: 'tomoyo519', repo: 'comment');

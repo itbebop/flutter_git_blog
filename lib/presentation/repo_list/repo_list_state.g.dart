@@ -17,6 +17,9 @@ _$RepoListStateImpl _$$RepoListStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Repo.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$RepoListStateImplToJson(_$RepoListStateImpl instance) =>
@@ -24,4 +27,5 @@ Map<String, dynamic> _$$RepoListStateImplToJson(_$RepoListStateImpl instance) =>
       'isLoading': instance.isLoading,
       'post': instance.post,
       'respos': instance.respos,
+      'user': instance.user,
     };

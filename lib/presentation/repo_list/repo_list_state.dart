@@ -1,5 +1,6 @@
 import 'package:flutter_git_blog/data/model/post.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
+import 'package:flutter_git_blog/data/model/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'repo_list_state.freezed.dart';
@@ -11,6 +12,7 @@ class RepoListState with _$RepoListState {
     @Default(false) bool isLoading,
     @Default([]) List<Post> post,
     @Default([]) List<Repo> respos,
+    User? user,
   }) = _RepoListState;
 
   factory RepoListState.fromJson(Map<String, dynamic> json) => _$RepoListStateFromJson(json);

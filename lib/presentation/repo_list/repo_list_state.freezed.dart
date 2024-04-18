@@ -23,6 +23,7 @@ mixin _$RepoListState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Post> get post => throw _privateConstructorUsedError;
   List<Repo> get respos => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,9 @@ abstract class $RepoListStateCopyWith<$Res> {
           RepoListState value, $Res Function(RepoListState) then) =
       _$RepoListStateCopyWithImpl<$Res, RepoListState>;
   @useResult
-  $Res call({bool isLoading, List<Post> post, List<Repo> respos});
+  $Res call({bool isLoading, List<Post> post, List<Repo> respos, User? user});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -55,6 +58,7 @@ class _$RepoListStateCopyWithImpl<$Res, $Val extends RepoListState>
     Object? isLoading = null,
     Object? post = null,
     Object? respos = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -69,7 +73,23 @@ class _$RepoListStateCopyWithImpl<$Res, $Val extends RepoListState>
           ? _value.respos
           : respos // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -81,7 +101,10 @@ abstract class _$$RepoListStateImplCopyWith<$Res>
       __$$RepoListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<Post> post, List<Repo> respos});
+  $Res call({bool isLoading, List<Post> post, List<Repo> respos, User? user});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -98,6 +121,7 @@ class __$$RepoListStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? post = null,
     Object? respos = null,
+    Object? user = freezed,
   }) {
     return _then(_$RepoListStateImpl(
       isLoading: null == isLoading
@@ -112,6 +136,10 @@ class __$$RepoListStateImplCopyWithImpl<$Res>
           ? _value._respos
           : respos // ignore: cast_nullable_to_non_nullable
               as List<Repo>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -122,7 +150,8 @@ class _$RepoListStateImpl implements _RepoListState {
   const _$RepoListStateImpl(
       {this.isLoading = false,
       final List<Post> post = const [],
-      final List<Repo> respos = const []})
+      final List<Repo> respos = const [],
+      this.user})
       : _post = post,
         _respos = respos;
 
@@ -151,8 +180,11 @@ class _$RepoListStateImpl implements _RepoListState {
   }
 
   @override
+  final User? user;
+
+  @override
   String toString() {
-    return 'RepoListState(isLoading: $isLoading, post: $post, respos: $respos)';
+    return 'RepoListState(isLoading: $isLoading, post: $post, respos: $respos, user: $user)';
   }
 
   @override
@@ -163,7 +195,8 @@ class _$RepoListStateImpl implements _RepoListState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._post, _post) &&
-            const DeepCollectionEquality().equals(other._respos, _respos));
+            const DeepCollectionEquality().equals(other._respos, _respos) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
@@ -172,7 +205,8 @@ class _$RepoListStateImpl implements _RepoListState {
       runtimeType,
       isLoading,
       const DeepCollectionEquality().hash(_post),
-      const DeepCollectionEquality().hash(_respos));
+      const DeepCollectionEquality().hash(_respos),
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +226,8 @@ abstract class _RepoListState implements RepoListState {
   const factory _RepoListState(
       {final bool isLoading,
       final List<Post> post,
-      final List<Repo> respos}) = _$RepoListStateImpl;
+      final List<Repo> respos,
+      final User? user}) = _$RepoListStateImpl;
 
   factory _RepoListState.fromJson(Map<String, dynamic> json) =
       _$RepoListStateImpl.fromJson;
@@ -203,6 +238,8 @@ abstract class _RepoListState implements RepoListState {
   List<Post> get post;
   @override
   List<Repo> get respos;
+  @override
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$RepoListStateImplCopyWith<_$RepoListStateImpl> get copyWith =>
