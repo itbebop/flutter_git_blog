@@ -13,7 +13,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => RepoListViewModel(userRepositoryImpl: UserRepositoryImpl(GitDataSource()), postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
+        create: (context) => RepoListViewModel(context: context, userRepositoryImpl: UserRepositoryImpl(GitDataSource()), postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
         child: const RepoListScreen(),
       ),
     ),

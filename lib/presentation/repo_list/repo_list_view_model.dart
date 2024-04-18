@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:flutter_git_blog/data/model/user.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
@@ -9,7 +10,7 @@ import 'package:go_router/go_router.dart';
 class RepoListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
 
-  RepoListViewModel({required UserRepositoryImpl userRepositoryImpl, required PostRepositoryImpl postRepositoryImpl})
+  RepoListViewModel({required UserRepositoryImpl userRepositoryImpl, required this.context, required PostRepositoryImpl postRepositoryImpl})
       : _postRepositoryImpl = postRepositoryImpl,
         _userRepositoryImpl = userRepositoryImpl;
   Repo? repo;
@@ -18,7 +19,9 @@ class RepoListViewModel with ChangeNotifier {
   RepoListState get state => _state;
   final UserRepositoryImpl _userRepositoryImpl;
   User? user;
-
+  int selectedIndex = 0;
+  String? queryTextEditingController;
+  BuildContext context;
   bool _isLoading = false;
 
   void userSearch(String id) async {
@@ -30,13 +33,13 @@ class RepoListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void onSearch(String value, context) async {
+  void onSearch(String value, controller) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
     if (value.contains('/')) {
       // 바로 repo 선택
-      onSelectRepo(context, value);
+      onSelectRepo(value);
     } else {
       // repo만 서치
       _state = state.copyWith(
@@ -44,15 +47,21 @@ class RepoListViewModel with ChangeNotifier {
         isLoading: false,
       );
     }
+    queryTextEditingController = controller;
     notifyListeners();
   }
 
-  void onSelectRepo(context, value) async {
+  void onSelectRepo(repoName) async {
+    final path = '$queryTextEditingController/$repoName';
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
     _state = state.copyWith(isLoading: false);
     notifyListeners();
-    GoRouter.of(context).push('/post', extra: value);
+    GoRouter.of(context).push('/post', extra: path);
+  }
+
+  void onScrolledRepo(index) {
+    selectedIndex = index;
   }
 }

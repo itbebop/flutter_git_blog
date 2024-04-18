@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_view_model.dart';
@@ -41,26 +42,36 @@ class _PostListScreenState extends State<PostListScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Column(
-                    children: dirs
-                        .map((e) => GestureDetector(
-                              onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
-                              child: Text(
-                                e.title,
-                                style: const TextStyle(fontSize: 30),
-                              ),
-                            ))
-                        .toList()),
-                Column(
-                    children: files
-                        .map((e) => GestureDetector(
-                              onTap: () => viewModel.onSelectFile(context, widget.repoPath, e.title),
-                              child: Text(
-                                e.title,
-                                style: const TextStyle(fontSize: 30),
-                              ),
-                            ))
-                        .toList()),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: dirs
+                              .map((e) => GestureDetector(
+                                    onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
+                                    child: Text(
+                                      e.title,
+                                      style: const TextStyle(fontSize: 30),
+                                    ),
+                                  ))
+                              .toList()),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: files
+                              .map((e) => GestureDetector(
+                                    onTap: () => viewModel.onSelectFile(context, widget.repoPath, e.title),
+                                    child: TextWidget(
+                                      text: e.title,
+                                      fontSize: 20,
+                                    ),
+                                  ))
+                              .toList()),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
