@@ -25,7 +25,7 @@ class RepoList extends StatelessWidget {
             children: viewModel.state.respos
                 .map((e) => GestureDetector(
                       onTap: () {
-                        viewModel.onSelectRepo('${e.name}');
+                        viewModel.onSelectRepo(e.name);
                         viewModel.context.push('/post', extra: '${viewModel.queryTextEditingController}/${e.name}');
                       },
                       child: Chip(
@@ -38,7 +38,7 @@ class RepoList extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         label: TextWidget(
-                          text: e.name ?? '이름없음',
+                          text: e.name,
                         ),
                       ),
                     ))

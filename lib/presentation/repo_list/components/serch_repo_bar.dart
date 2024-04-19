@@ -5,7 +5,11 @@ class SearchRepoBar extends StatelessWidget {
   final TextEditingController _queryTextEditingController;
   final RepoListViewModel viewModel;
 
-  const SearchRepoBar({super.key, required TextEditingController queryTextEditingController, required this.viewModel}) : _queryTextEditingController = queryTextEditingController;
+  const SearchRepoBar(
+      {super.key,
+      required TextEditingController queryTextEditingController,
+      required this.viewModel})
+      : _queryTextEditingController = queryTextEditingController;
 
   @override
   Widget build(BuildContext context) {

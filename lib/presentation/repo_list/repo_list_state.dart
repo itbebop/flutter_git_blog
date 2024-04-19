@@ -15,5 +15,6 @@ class RepoListState with _$RepoListState {
     User? user,
   }) = _RepoListState;
 
-  factory RepoListState.fromJson(Map<String, dynamic> json) => _$RepoListStateFromJson(json);
+  factory RepoListState.fromJson(Map<String, dynamic> json) =>
+      _$RepoListStateFromJson(json);
 }
