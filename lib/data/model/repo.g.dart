@@ -8,8 +8,8 @@ part of 'repo.dart';
 
 _$RepoImpl _$$RepoImplFromJson(Map<String, dynamic> json) => _$RepoImpl(
       id: json['id'] as int,
-      name: json['name'] as String?,
-      fullName: json['fullName'] as String?,
+      name: json['name'] as String,
+      fullName: json['fullName'] as String,
       htmlUrl: json['htmlUrl'] as String,
     );
 

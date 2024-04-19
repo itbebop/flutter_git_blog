@@ -21,8 +21,8 @@ Repo _$RepoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Repo {
   int get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-  String? get fullName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   String get htmlUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $RepoCopyWith<$Res> {
   factory $RepoCopyWith(Repo value, $Res Function(Repo) then) =
       _$RepoCopyWithImpl<$Res, Repo>;
   @useResult
-  $Res call({int id, String? name, String? fullName, String htmlUrl});
+  $Res call({int id, String name, String fullName, String htmlUrl});
 }
 
 /// @nodoc
@@ -52,8 +52,8 @@ class _$RepoCopyWithImpl<$Res, $Val extends Repo>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
-    Object? fullName = freezed,
+    Object? name = null,
+    Object? fullName = null,
     Object? htmlUrl = null,
   }) {
     return _then(_value.copyWith(
@@ -61,14 +61,14 @@ class _$RepoCopyWithImpl<$Res, $Val extends Repo>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fullName: freezed == fullName
+              as String,
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ abstract class _$$RepoImplCopyWith<$Res> implements $RepoCopyWith<$Res> {
       __$$RepoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? name, String? fullName, String htmlUrl});
+  $Res call({int id, String name, String fullName, String htmlUrl});
 }
 
 /// @nodoc
@@ -98,8 +98,8 @@ class __$$RepoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
-    Object? fullName = freezed,
+    Object? name = null,
+    Object? fullName = null,
     Object? htmlUrl = null,
   }) {
     return _then(_$RepoImpl(
@@ -107,14 +107,14 @@ class __$$RepoImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fullName: freezed == fullName
+              as String,
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,10 @@ class __$$RepoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RepoImpl implements _Repo {
   const _$RepoImpl(
-      {required this.id, this.name, this.fullName, required this.htmlUrl});
+      {required this.id,
+      required this.name,
+      required this.fullName,
+      required this.htmlUrl});
 
   factory _$RepoImpl.fromJson(Map<String, dynamic> json) =>
       _$$RepoImplFromJson(json);
@@ -135,9 +138,9 @@ class _$RepoImpl implements _Repo {
   @override
   final int id;
   @override
-  final String? name;
+  final String name;
   @override
-  final String? fullName;
+  final String fullName;
   @override
   final String htmlUrl;
 
@@ -179,8 +182,8 @@ class _$RepoImpl implements _Repo {
 abstract class _Repo implements Repo {
   const factory _Repo(
       {required final int id,
-      final String? name,
-      final String? fullName,
+      required final String name,
+      required final String fullName,
       required final String htmlUrl}) = _$RepoImpl;
 
   factory _Repo.fromJson(Map<String, dynamic> json) = _$RepoImpl.fromJson;
@@ -188,9 +191,9 @@ abstract class _Repo implements Repo {
   @override
   int get id;
   @override
-  String? get name;
+  String get name;
   @override
-  String? get fullName;
+  String get fullName;
   @override
   String get htmlUrl;
   @override

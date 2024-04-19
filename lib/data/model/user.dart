@@ -8,7 +8,7 @@ class User with _$User {
   const factory User({
     required int id,
     required String name,
-    required String html_url,
+    required String htmlUrl,
     required String bio,
     required String avatarUrl,
     required int followers,

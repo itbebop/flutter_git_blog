@@ -22,7 +22,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get html_url => throw _privateConstructorUsedError;
+  String get htmlUrl => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   String get avatarUrl => throw _privateConstructorUsedError;
   int get followers => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $UserCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String html_url,
+      String htmlUrl,
       String bio,
       String avatarUrl,
       int followers,
@@ -75,7 +75,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? html_url = null,
+    Object? htmlUrl = null,
     Object? bio = null,
     Object? avatarUrl = null,
     Object? followers = null,
@@ -96,9 +96,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      html_url: null == html_url
-          ? _value.html_url
-          : html_url // ignore: cast_nullable_to_non_nullable
+      htmlUrl: null == htmlUrl
+          ? _value.htmlUrl
+          : htmlUrl // ignore: cast_nullable_to_non_nullable
               as String,
       bio: null == bio
           ? _value.bio
@@ -154,7 +154,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String html_url,
+      String htmlUrl,
       String bio,
       String avatarUrl,
       int followers,
@@ -179,7 +179,7 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? html_url = null,
+    Object? htmlUrl = null,
     Object? bio = null,
     Object? avatarUrl = null,
     Object? followers = null,
@@ -200,9 +200,9 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      html_url: null == html_url
-          ? _value.html_url
-          : html_url // ignore: cast_nullable_to_non_nullable
+      htmlUrl: null == htmlUrl
+          ? _value.htmlUrl
+          : htmlUrl // ignore: cast_nullable_to_non_nullable
               as String,
       bio: null == bio
           ? _value.bio
@@ -254,7 +254,7 @@ class _$UserImpl implements _User {
   const _$UserImpl(
       {required this.id,
       required this.name,
-      required this.html_url,
+      required this.htmlUrl,
       required this.bio,
       required this.avatarUrl,
       required this.followers,
@@ -274,7 +274,7 @@ class _$UserImpl implements _User {
   @override
   final String name;
   @override
-  final String html_url;
+  final String htmlUrl;
   @override
   final String bio;
   @override
@@ -298,7 +298,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, html_url: $html_url, bio: $bio, avatarUrl: $avatarUrl, followers: $followers, following: $following, blog: $blog, company: $company, publicRepos: $publicRepos, location: $location, email: $email, type: $type)';
+    return 'User(id: $id, name: $name, htmlUrl: $htmlUrl, bio: $bio, avatarUrl: $avatarUrl, followers: $followers, following: $following, blog: $blog, company: $company, publicRepos: $publicRepos, location: $location, email: $email, type: $type)';
   }
 
   @override
@@ -308,8 +308,7 @@ class _$UserImpl implements _User {
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.html_url, html_url) ||
-                other.html_url == html_url) &&
+            (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
@@ -333,7 +332,7 @@ class _$UserImpl implements _User {
       runtimeType,
       id,
       name,
-      html_url,
+      htmlUrl,
       bio,
       avatarUrl,
       followers,
@@ -363,7 +362,7 @@ abstract class _User implements User {
   const factory _User(
       {required final int id,
       required final String name,
-      required final String html_url,
+      required final String htmlUrl,
       required final String bio,
       required final String avatarUrl,
       required final int followers,
@@ -382,7 +381,7 @@ abstract class _User implements User {
   @override
   String get name;
   @override
-  String get html_url;
+  String get htmlUrl;
   @override
   String get bio;
   @override
