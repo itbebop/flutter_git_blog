@@ -1,7 +1,10 @@
 import 'package:flutter_git_blog/data/data_source/git_data_source.dart';
+import 'package:flutter_git_blog/data/dto/file_dto/file_dto.dart';
 import 'package:flutter_git_blog/data/dto/post_dto/post_dto.dart';
+import 'package:flutter_git_blog/data/mapper/file_mapper.dart';
 import 'package:flutter_git_blog/data/mapper/post_mapper.dart';
 import 'package:flutter_git_blog/data/mapper/repo_mapper.dart';
+import 'package:flutter_git_blog/data/model/file.dart';
 import 'package:flutter_git_blog/data/model/post.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:flutter_git_blog/data/repository/post_repository.dart';
@@ -21,5 +24,12 @@ class PostRepositoryImpl implements PostRepository {
   Future<List<Post>> getDir({required String owner, required String repo, String? path}) async {
     final List<PostDto> dto = await _postDataSource.getPath(owner: owner, repo: repo, path: path);
     return dto.map((e) => e.toPost()).toList();
+  }
+
+  @override
+  Future<File> getFile({required String owner, required String repo, required dir, required file}) async {
+    final FileDto content = await _postDataSource.getPost(owner: owner, repo: repo, dir: dir, file: file);
+
+    return content.toFile();
   }
 }
