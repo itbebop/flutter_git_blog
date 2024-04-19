@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_git_blog/common/color/light_app_color.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_view_model.dart';
 import 'package:provider/provider.dart';
@@ -39,39 +40,102 @@ class _PostListScreenState extends State<PostListScreen> {
         )),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: dirs
-                              .map((e) => GestureDetector(
-                                    onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
-                                    child: Text(
-                                      e.title,
-                                      style: const TextStyle(fontSize: 30),
+                Wrap(
+                    spacing: 8.0, // gap between adjacent chips
+                    runSpacing: 4.0, // gap between lines
+                    children: dirs
+                        .map((e) => GestureDetector(
+                              onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
+                              child: Chip(
+                                backgroundColor: LightAppColor.primaryColor,
+                                shape: ContinuousRectangleBorder(
+                                  side: const BorderSide(
+                                    color: LightAppColor.primaryColor,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                label: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.folder,
+                                      color: LightAppColor.whiteColor,
                                     ),
-                                  ))
-                              .toList()),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: files
-                              .map((e) => GestureDetector(
-                                    onTap: () => viewModel.onSelectFile(context, widget.repoPath, e.title),
-                                    child: TextWidget(
-                                      text: e.title,
-                                      fontSize: 20,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: TextWidget(
+                                        text: e.title,
+                                        fontColor: LightAppColor.whiteColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ))
-                              .toList()),
-                    ],
-                  ),
-                ),
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList()),
+                Wrap(
+                    spacing: 8.0, // gap between adjacent chips
+                    runSpacing: 4.0, // gap between lines
+                    children: files
+                        .map((e) => GestureDetector(
+                              onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
+                              child: e.title.substring(e.title.length - 2) == 'md'
+                                  ? GestureDetector(
+                                    onTap: ,
+                                    child: Chip(
+                                        backgroundColor: Colors.transparent,
+                                        shape: ContinuousRectangleBorder(
+                                          side: const BorderSide(
+                                            color: LightAppColor.primaryColor,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        label: Row(
+                                          children: [
+                                            const Icon(Icons.file_copy_outlined),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 8.0),
+                                              child: TextWidget(
+                                                text: e.title,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  )
+                                  // 읽지 못하는 파일
+                                  : Chip(
+                                      backgroundColor: Colors.transparent,
+                                      shape: ContinuousRectangleBorder(
+                                        side: const BorderSide(
+                                          color: LightAppColor.greyColor,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.file_copy_outlined,
+                                            color: LightAppColor.secondaryColor,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8.0),
+                                            child: TextWidget(
+                                              text: e.title,
+                                              fontColor: LightAppColor.secondaryColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                            ))
+                        .toList()),
               ],
             ),
           ),
