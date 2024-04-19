@@ -27,8 +27,8 @@ class RepoListViewModel with ChangeNotifier {
   void userSearch(String id) async {
     _isLoading = true;
     notifyListeners();
-
-    user = await _userRepositoryImpl.getUser(id);
+    // repo까지 같이 검색하는 경우엔 아무것도 하지 않음
+    !id.contains('/') ? user = await _userRepositoryImpl.getUser(id) : '';
     _isLoading = false;
     notifyListeners();
   }
@@ -52,7 +52,8 @@ class RepoListViewModel with ChangeNotifier {
   }
 
   void onSelectRepo(repoName) async {
-    final path = '$queryTextEditingController/$repoName';
+    String path = repoName;
+    path.contains('/') ? path : path = '$queryTextEditingController/$repoName';
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
