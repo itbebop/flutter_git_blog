@@ -13,16 +13,8 @@ class UserProfile extends StatelessWidget {
         top: 32.0,
       ),
       child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                  spreadRadius: 0.5,
-                  blurRadius: 1,
-                  offset: Offset(0, 6),
-                  color: Colors.black12)
-            ]),
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.white, boxShadow: const [BoxShadow(spreadRadius: 0.5, blurRadius: 1, offset: Offset(0, 6), color: Colors.black12)]),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
@@ -45,7 +37,7 @@ class UserProfile extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     TextWidget(
-                      text: user.html_url.split('/')[3],
+                      text: user.htmlUrl.split('/')[3],
                       fontSize: 17,
                     ),
                     Row(
@@ -55,22 +47,18 @@ class UserProfile extends StatelessWidget {
                         Row(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 user.followers.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w700),
+                                style: const TextStyle(fontWeight: FontWeight.w700),
                               ),
                             ),
                             const Text('followers'),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 user.following.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w700),
+                                style: const TextStyle(fontWeight: FontWeight.w700),
                               ),
                             ),
                             const Text('following'),
@@ -84,8 +72,7 @@ class UserProfile extends StatelessWidget {
                             children: [
                               const Icon(Icons.location_on),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(user.location),
                               )
                             ],
@@ -97,8 +84,7 @@ class UserProfile extends StatelessWidget {
                             children: [
                               const Icon(Icons.email),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(user.email),
                               )
                             ],
@@ -110,8 +96,7 @@ class UserProfile extends StatelessWidget {
                             children: [
                               const Icon(Icons.apartment),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(user.company),
                               )
                             ],
@@ -134,8 +119,7 @@ class UserProfile extends StatelessWidget {
                             children: [
                               const Icon(Icons.home),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(user.blog),
                               )
                             ],

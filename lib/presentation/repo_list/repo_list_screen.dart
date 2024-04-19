@@ -28,17 +28,13 @@ class _RepoListScreenState extends State<RepoListScreen> {
             SizedBox(
               height: 50,
               width: 50,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
-                  child: Image.asset('assets/images/logo.png')),
+              child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.02),
             SizedBox(
               height: 50,
               width: 100,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
-                  child: Image.asset('assets/images/catub.png')),
+              child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
             ),
           ],
         ),
@@ -47,19 +43,16 @@ class _RepoListScreenState extends State<RepoListScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding:
-                const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
+            padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
             child: Column(
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: SearchRepoBar(
-                      queryTextEditingController: _queryTextEditingController,
-                      viewModel: viewModel),
+                  child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
                 ),
                 user != null ? UserProfile(user: user) : const SizedBox(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 RepoList(viewModel: viewModel),
               ],
             ),
@@ -68,9 +61,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          border: Border(
-              top: BorderSide(
-                  color: LightAppColor.greyColor, width: 1.0)), // 라인효과
+          border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
         ),
         child: BottomNavigationBar(
           onTap: (value) {
@@ -84,11 +75,8 @@ class _RepoListScreenState extends State<RepoListScreen> {
           showSelectedLabels: true,
           showUnselectedLabels: false,
           items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: LightAppColor.secondaryColor),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.local_mall), label: 'Repository'),
+            BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: 'Repository'),
           ],
         ),
       ),

@@ -10,7 +10,10 @@ import 'package:go_router/go_router.dart';
 class RepoListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
 
-  RepoListViewModel({required UserRepositoryImpl userRepositoryImpl, required this.context, required PostRepositoryImpl postRepositoryImpl})
+  RepoListViewModel(
+      {required UserRepositoryImpl userRepositoryImpl,
+      required this.context,
+      required PostRepositoryImpl postRepositoryImpl})
       : _postRepositoryImpl = postRepositoryImpl,
         _userRepositoryImpl = userRepositoryImpl;
   Repo? repo;
