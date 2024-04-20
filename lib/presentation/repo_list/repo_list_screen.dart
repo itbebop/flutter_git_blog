@@ -42,6 +42,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
             child: Column(
@@ -67,9 +68,9 @@ class _RepoListScreenState extends State<RepoListScreen> {
           onTap: (value) {
             switch (value) {
               case 0:
-                context.push('/');
+                context.go('/');
               case 1:
-                context.push('/post');
+                context.go('/favorites');
             }
           },
           showSelectedLabels: true,

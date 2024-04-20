@@ -1,6 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_git_blog/common/screen/error_screen.dart';
 import 'package:flutter_git_blog/data/data_source/git_data_source.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/data/repository/user_repository_Impl.dart';
+import 'package:flutter_git_blog/presentation/favorite_list/favorite_list.dart';
+import 'package:flutter_git_blog/presentation/favorite_list/favorite_view_model.dart';
 import 'package:flutter_git_blog/presentation/post/post_screen.dart';
 import 'package:flutter_git_blog/presentation/post/post_view_model.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_screen.dart';
@@ -36,5 +40,16 @@ final router = GoRouter(
         child: PostScreen(state.extra as String),
       ),
     ),
+    GoRoute(
+      path: '/favorites',
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => FavoriteViewModel(),
+        child: const FavoriteScreen(),
+      ),
+    ),
   ],
+  errorBuilder: (context, state) {
+    // 에러 페이지
+    return const Error404Screen();
+  },
 );

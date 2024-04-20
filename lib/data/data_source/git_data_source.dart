@@ -23,7 +23,7 @@ class GitDataSource {
     // repo의
     final response = await http.get(Uri.parse('$_baseUrl/users/$owner/repos'));
 
-    final List bodies = jsonDecode(response.body);
+    final List bodies = response.statusCode == 200 ? jsonDecode(response.body) : throw Exception('statusCode: ${response.statusCode}');
 
     return bodies.map((e) => RepoDto.fromJson(e)).toList();
   }
