@@ -32,10 +32,7 @@ class PostListViewModel with ChangeNotifier {
     final repoPath = path.split('/');
     // 경로 하나 추가해주고
     totalPath = totalPath != '' ? '$totalPath/$dir' : dir; // 경로 하나 추가해주고
-    print('onSelectDir, totalPaht: $totalPath');
     prevPath = prevPath != '' ? '$prevPath/$dir' : dir; // 경로 하나 추가해주고
-    print('onSelectDir, prevPath: $prevPath');
-    print('onSelectDir, dir: $dir');
 
     final owner = repoPath[0];
     final repo = repoPath[1];

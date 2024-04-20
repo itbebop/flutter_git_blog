@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/color/light_app_color.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
@@ -20,8 +19,6 @@ class _PostListScreenState extends State<PostListScreen> {
     final repoPath = widget.repoPath.split('/');
     Future.microtask(() {
       final viewModel = context.read<PostListViewModel>();
-      print('repoPath.length : ${repoPath.length}');
-      print('##widget.repoPath : ${widget.repoPath}');
 
       viewModel.onFetch(owner: repoPath[0], repo: repoPath[1], path: widget.repoPath);
     });

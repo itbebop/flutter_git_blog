@@ -34,7 +34,7 @@ class _PostScreenState extends State<PostScreen> {
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.8,
           child: Markdown(
-            data: viewModel.decodedResult ?? 'post 실패',
+            data: viewModel.decodedResult,
           ),
         ),
       ),
