@@ -35,9 +35,9 @@ class GitDataSource {
     return bodies.map((e) => PostDto.fromJson(e)).toList();
   }
 
-  Future<FileDto> getPost({required String owner, required String repo, required String dir, required String file}) async {
+  Future<FileDto> getPost({required String owner, required String repo, required String dir}) async {
     //void getGitData(String owner, String repo, String dir, String file) async {
-    final response = await http.get(Uri.parse('$_baseUrl$owner/$repo/contents/$dir/$file'));
+    final response = await http.get(Uri.parse('$_baseUrl/repos/$owner/$repo/contents$dir'));
 
     // final Map<String, dynamic> body = jsonDecode(response.body);
     // final Map<String, dynamic> header = response.headers;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/color/light_app_color.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_view_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class PostListScreen extends StatefulWidget {
@@ -22,8 +23,7 @@ class _PostListScreenState extends State<PostListScreen> {
       print('repoPath.length : ${repoPath.length}');
       print('##widget.repoPath : ${widget.repoPath}');
 
-      viewModel.onFetch(
-          owner: repoPath[0], repo: repoPath[1], path: widget.repoPath);
+      viewModel.onFetch(owner: repoPath[0], repo: repoPath[1], path: widget.repoPath);
     });
     super.initState();
   }
@@ -31,10 +31,8 @@ class _PostListScreenState extends State<PostListScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<PostListViewModel>();
-    final dirs =
-        viewModel.posts.where((element) => element.type == 'dir').toList();
-    final files =
-        viewModel.posts.where((element) => element.type == 'file').toList();
+    final dirs = viewModel.posts.where((element) => element.type == 'dir').toList();
+    final files = viewModel.posts.where((element) => element.type == 'file').toList();
 
     return Scaffold(
         appBar: AppBar(
@@ -51,8 +49,7 @@ class _PostListScreenState extends State<PostListScreen> {
                     runSpacing: 4.0, // gap between lines
                     children: dirs
                         .map((e) => GestureDetector(
-                              onTap: () => viewModel.onSelectDir(
-                                  context, widget.repoPath, e.title),
+                              onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
                               child: Chip(
                                 backgroundColor: LightAppColor.primaryColor,
                                 shape: ContinuousRectangleBorder(
@@ -86,13 +83,10 @@ class _PostListScreenState extends State<PostListScreen> {
                     runSpacing: 4.0, // gap between lines
                     children: files
                         .map((e) => GestureDetector(
-                              onTap: () => viewModel.onSelectDir(
-                                  context, widget.repoPath, e.title),
-                              child: e.title.substring(e.title.length - 2) ==
-                                      'md'
+                              onTap: () => viewModel.onSelectDir(context, widget.repoPath, e.title),
+                              child: e.title.substring(e.title.length - 2) == 'md'
                                   ? GestureDetector(
-                                      onTap: () => viewModel.onSelectDir(
-                                          context, widget.repoPath, e.title),
+                                      onTap: () => viewModel.context.push('/post', extra: '${viewModel.totalPath}/${e.title}'),
                                       // 읽을 수 있는 파일
                                       child: Chip(
                                         backgroundColor: Colors.transparent,
@@ -101,16 +95,13 @@ class _PostListScreenState extends State<PostListScreen> {
                                             color: LightAppColor.primaryColor,
                                             width: 1.0,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
+                                          borderRadius: BorderRadius.circular(15),
                                         ),
                                         label: Row(
                                           children: [
-                                            const Icon(
-                                                Icons.file_copy_outlined),
+                                            const Icon(Icons.file_copy_outlined),
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0),
+                                              padding: const EdgeInsets.only(left: 8.0),
                                               child: TextWidget(
                                                 text: e.title,
                                               ),
@@ -136,12 +127,10 @@ class _PostListScreenState extends State<PostListScreen> {
                                             color: LightAppColor.secondaryColor,
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
+                                            padding: const EdgeInsets.only(left: 8.0),
                                             child: TextWidget(
                                               text: e.title,
-                                              fontColor:
-                                                  LightAppColor.secondaryColor,
+                                              fontColor: LightAppColor.secondaryColor,
                                             ),
                                           ),
                                         ],

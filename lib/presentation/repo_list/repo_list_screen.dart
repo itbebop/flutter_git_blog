@@ -69,7 +69,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
               case 0:
                 context.push('/');
               case 1:
-                context.push('/repo');
+                context.push('/post');
             }
           },
           showSelectedLabels: true,

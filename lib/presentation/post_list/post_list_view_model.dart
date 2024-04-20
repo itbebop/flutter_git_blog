@@ -5,7 +5,8 @@ import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 class PostListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
 
-  PostListViewModel({required PostRepositoryImpl postRepositoryImpl}) : _postRepositoryImpl = postRepositoryImpl;
+  PostListViewModel({required PostRepositoryImpl postRepositoryImpl, required this.context}) : _postRepositoryImpl = postRepositoryImpl;
+  BuildContext context;
   List<Post> posts = []; // 화면 처음에 뿌려줄 list
   List<Post> selectedPosts = []; // 화면 처음에 뿌려줄 list
   String totalPath = '';
@@ -15,9 +16,9 @@ class PostListViewModel with ChangeNotifier {
     if (path != null) {
       final repoPath = path.split('/');
       switch (repoPath.length) {
-        case < 3:
+        case < 3: // 왜 하는거지??
           path = '';
-          totalPath = '$owner/$repo/$path';
+          totalPath = '$owner/$repo';
       }
     } else {
       path = '';
@@ -31,7 +32,10 @@ class PostListViewModel with ChangeNotifier {
     final repoPath = path.split('/');
     // 경로 하나 추가해주고
     totalPath = totalPath != '' ? '$totalPath/$dir' : dir; // 경로 하나 추가해주고
+    print('onSelectDir, totalPaht: $totalPath');
     prevPath = prevPath != '' ? '$prevPath/$dir' : dir; // 경로 하나 추가해주고
+    print('onSelectDir, prevPath: $prevPath');
+    print('onSelectDir, dir: $dir');
 
     final owner = repoPath[0];
     final repo = repoPath[1];
@@ -39,6 +43,4 @@ class PostListViewModel with ChangeNotifier {
     posts = await _postRepositoryImpl.getDir(owner: owner, repo: repo, path: prevPath);
     notifyListeners();
   }
-
-  void onSelectFile(context, String path, String fileName) {}
 }

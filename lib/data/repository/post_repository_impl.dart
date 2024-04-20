@@ -27,8 +27,8 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<File> getFile({required String owner, required String repo, required dir, required file}) async {
-    final FileDto content = await _postDataSource.getPost(owner: owner, repo: repo, dir: dir, file: file);
+  Future<File> getFile({required String owner, required String repo, required dir}) async {
+    final FileDto content = await _postDataSource.getPost(owner: owner, repo: repo, dir: dir);
 
     return content.toFile();
   }

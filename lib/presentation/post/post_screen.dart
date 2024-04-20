@@ -15,15 +15,15 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     final viewModel = context.read<PostViewModel>();
     viewModel.onFetch(widget.path);
-    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<PostViewModel>();
+    final viewModel = context.watch<PostViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const TextWidget(
@@ -31,8 +31,11 @@ class _PostScreenState extends State<PostScreen> {
         ),
       ),
       body: SafeArea(
-        child: Markdown(
-          data: viewModel.contents ?? '실패',
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.8,
+          child: Markdown(
+            data: viewModel.decodedResult ?? 'post 실패',
+          ),
         ),
       ),
     );
