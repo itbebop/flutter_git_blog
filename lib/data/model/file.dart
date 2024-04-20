@@ -7,8 +7,10 @@ part 'file.g.dart';
 class File with _$File {
   const factory File({
     required String name,
+    required String path,
     required num size,
     required String htmlUrl,
+    required String downloadUrl,
     required String type,
     required String content,
     required String encoding,

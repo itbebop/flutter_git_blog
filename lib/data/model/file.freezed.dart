@@ -21,8 +21,10 @@ File _$FileFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$File {
   String get name => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
   num get size => throw _privateConstructorUsedError;
   String get htmlUrl => throw _privateConstructorUsedError;
+  String get downloadUrl => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String get encoding => throw _privateConstructorUsedError;
@@ -39,8 +41,10 @@ abstract class $FileCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String path,
       num size,
       String htmlUrl,
+      String downloadUrl,
       String type,
       String content,
       String encoding});
@@ -60,8 +64,10 @@ class _$FileCopyWithImpl<$Res, $Val extends File>
   @override
   $Res call({
     Object? name = null,
+    Object? path = null,
     Object? size = null,
     Object? htmlUrl = null,
+    Object? downloadUrl = null,
     Object? type = null,
     Object? content = null,
     Object? encoding = null,
@@ -71,6 +77,10 @@ class _$FileCopyWithImpl<$Res, $Val extends File>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -78,6 +88,10 @@ class _$FileCopyWithImpl<$Res, $Val extends File>
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      downloadUrl: null == downloadUrl
+          ? _value.downloadUrl
+          : downloadUrl // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -104,8 +118,10 @@ abstract class _$$FileImplCopyWith<$Res> implements $FileCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String path,
       num size,
       String htmlUrl,
+      String downloadUrl,
       String type,
       String content,
       String encoding});
@@ -122,8 +138,10 @@ class __$$FileImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? path = null,
     Object? size = null,
     Object? htmlUrl = null,
+    Object? downloadUrl = null,
     Object? type = null,
     Object? content = null,
     Object? encoding = null,
@@ -133,6 +151,10 @@ class __$$FileImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -140,6 +162,10 @@ class __$$FileImplCopyWithImpl<$Res>
       htmlUrl: null == htmlUrl
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      downloadUrl: null == downloadUrl
+          ? _value.downloadUrl
+          : downloadUrl // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -162,8 +188,10 @@ class __$$FileImplCopyWithImpl<$Res>
 class _$FileImpl implements _File {
   const _$FileImpl(
       {required this.name,
+      required this.path,
       required this.size,
       required this.htmlUrl,
+      required this.downloadUrl,
       required this.type,
       required this.content,
       required this.encoding});
@@ -174,9 +202,13 @@ class _$FileImpl implements _File {
   @override
   final String name;
   @override
+  final String path;
+  @override
   final num size;
   @override
   final String htmlUrl;
+  @override
+  final String downloadUrl;
   @override
   final String type;
   @override
@@ -186,7 +218,7 @@ class _$FileImpl implements _File {
 
   @override
   String toString() {
-    return 'File(name: $name, size: $size, htmlUrl: $htmlUrl, type: $type, content: $content, encoding: $encoding)';
+    return 'File(name: $name, path: $path, size: $size, htmlUrl: $htmlUrl, downloadUrl: $downloadUrl, type: $type, content: $content, encoding: $encoding)';
   }
 
   @override
@@ -195,8 +227,11 @@ class _$FileImpl implements _File {
         (other.runtimeType == runtimeType &&
             other is _$FileImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.path, path) || other.path == path) &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl) &&
+            (identical(other.downloadUrl, downloadUrl) ||
+                other.downloadUrl == downloadUrl) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.encoding, encoding) ||
@@ -205,8 +240,8 @@ class _$FileImpl implements _File {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, size, htmlUrl, type, content, encoding);
+  int get hashCode => Object.hash(runtimeType, name, path, size, htmlUrl,
+      downloadUrl, type, content, encoding);
 
   @JsonKey(ignore: true)
   @override
@@ -225,8 +260,10 @@ class _$FileImpl implements _File {
 abstract class _File implements File {
   const factory _File(
       {required final String name,
+      required final String path,
       required final num size,
       required final String htmlUrl,
+      required final String downloadUrl,
       required final String type,
       required final String content,
       required final String encoding}) = _$FileImpl;
@@ -236,9 +273,13 @@ abstract class _File implements File {
   @override
   String get name;
   @override
+  String get path;
+  @override
   num get size;
   @override
   String get htmlUrl;
+  @override
+  String get downloadUrl;
   @override
   String get type;
   @override
