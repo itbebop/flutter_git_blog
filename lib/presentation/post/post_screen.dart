@@ -26,8 +26,8 @@ class _PostScreenState extends State<PostScreen> {
     final viewModel = context.watch<PostViewModel>();
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidget(
-          text: 'Post Screen',
+        title: TextWidget(
+          text: viewModel.totalPath,
         ),
       ),
       body: SafeArea(

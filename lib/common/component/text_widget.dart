@@ -21,6 +21,7 @@ class TextWidget extends StatelessWidget {
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: fontColor,
+        overflow: TextOverflow.fade,
       ),
     );
   }

@@ -102,8 +102,11 @@ class _PostListScreenState extends State<PostListScreen> {
                                             const Icon(Icons.file_copy_outlined),
                                             Padding(
                                               padding: const EdgeInsets.only(left: 8.0),
-                                              child: TextWidget(
-                                                text: e.title,
+                                              child: Flexible(
+                                                child: TextWidget(
+                                                  // overflow나지 않게
+                                                  text: e.title.length > 35 ? '${e.title.substring(0, 35)}...' : e.title,
+                                                ),
                                               ),
                                             ),
                                           ],
