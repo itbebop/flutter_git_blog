@@ -4,8 +4,8 @@ import 'package:flutter_git_blog/common/screen/splash_screen.dart';
 import 'package:flutter_git_blog/data/data_source/git_data_source.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/data/repository/user_repository_Impl.dart';
-import 'package:flutter_git_blog/presentation/favorite_list/favorite_list.dart';
-import 'package:flutter_git_blog/presentation/favorite_list/favorite_view_model.dart';
+import 'package:flutter_git_blog/presentation/bookmark_list/bookmark_list.dart';
+import 'package:flutter_git_blog/presentation/bookmark_list/bookmark_view_model.dart';
 import 'package:flutter_git_blog/presentation/post/post_screen.dart';
 import 'package:flutter_git_blog/presentation/post/post_view_model.dart';
 import 'package:flutter_git_blog/presentation/post_list/post_list_screen.dart';
@@ -43,10 +43,10 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/favorites',
+      path: '/bookmarks',
       builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => FavoriteViewModel(),
-        child: const FavoriteScreen(),
+        create: (context) => BookmarkViewModel(context: context),
+        child: const BookmarkListScreen(),
       ),
     ),
     GoRoute(

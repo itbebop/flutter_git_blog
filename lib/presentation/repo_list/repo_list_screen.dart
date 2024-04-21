@@ -44,23 +44,21 @@ class _RepoListScreenState extends State<RepoListScreen> {
           ),
           actions: const [],
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
-                  ),
-                  user != null ? UserProfile(user: user) : const SizedBox(),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  RepoList(viewModel: viewModel),
-                ],
-              ),
+        body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
+                ),
+                user != null ? UserProfile(user: user) : const SizedBox(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                RepoList(viewModel: viewModel),
+              ],
             ),
           ),
         ),
@@ -74,12 +72,17 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 case 0:
                   context.go('/');
                 case 1:
-                  context.go('/favorites');
+                  context.go('/bookmarks');
               }
             },
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.star), label: 'favorites'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.star,
+                    color: Colors.black,
+                  ),
+                  label: 'Bookmarks'),
             ],
           ),
         ),

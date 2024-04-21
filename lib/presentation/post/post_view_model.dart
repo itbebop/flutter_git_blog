@@ -7,17 +7,32 @@ import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+Future<List<dynamic>> readFavorites() async {
+  //TODO: 함수는 favorite화면에서도 써서 static으로 했는데, 변수들도 static으로 설정해도 될지
+  const String exPath = '/storage/emulated/0/Download'; //TODO: default로 어떻게 설정해야할지
+  // 저장된 파일을 읽고 isSaved 상태를 업데이트
+  final file = File('$exPath/catub.json');
+  String contents;
+  dynamic decoded; //TODO:타입 수정해야함
+  if (await file.exists()) {
+    contents = await file.readAsString();
+    decoded = jsonDecode(contents);
+  }
+  List<dynamic> bookmarks = decoded is List ? decoded : [];
+  return bookmarks;
+}
+
 class PostViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
   PostViewModel({required this.context, required PostRepositoryImpl postRepositoryImpl}) : _postRepositoryImpl = postRepositoryImpl;
   FileInfo? fileInfo;
   String decodedResult = '';
   String totalPath = '';
-  BuildContext context;
-  bool isSaved = false;
-  String exPath = '/storage/emulated/0/Download'; //TODO: default로 어떻게 설정해야할지
   String dir = '';
-
+  BuildContext context;
+  String exPath = '/storage/emulated/0/Download';
+  bool isSaved = false;
+  List<dynamic> bookmarks = [];
   void onFetch(String path) async {
     List pathList = path.split('/');
     String owner = pathList[0];
@@ -26,28 +41,16 @@ class PostViewModel with ChangeNotifier {
     for (int i = 2; i < pathList.length; i++) {
       dir += '/${pathList[i]}';
     }
-
     totalPath = '$owner/$repo$dir';
+    // 즐겨찾기 읽어옴
+    bookmarks = await readFavorites();
+    //TODO:타입 수정해야함
+    var existingBookmark = bookmarks.firstWhere((bookmark) => bookmark['path'] == totalPath, orElse: () => null);
+    isSaved = existingBookmark != null;
+
     fileInfo = await _postRepositoryImpl.getFile(owner: owner, repo: repo, dir: dir);
     if (fileInfo != null) {
       decodedResult = base64Decode(fileInfo!.content);
-    }
-
-    // 저장된 파일을 읽고 isSaved 상태를 업데이트
-    final file = File('$exPath/catub.json');
-    print('0. exPath: $exPath');
-    if (await file.exists()) {
-      print('1. 파일이 존재함');
-      String contents = await file.readAsString();
-      dynamic decoded = jsonDecode(contents);
-      print('2. decoded: $decoded');
-      List<dynamic> bookmarks = decoded is List ? decoded : [];
-      print('3. decoded is List? ${decoded is List?}');
-      var existingBookmark = bookmarks.firstWhere((bookmark) => bookmark['path'] == totalPath, orElse: () => null);
-      isSaved = existingBookmark != null;
-    } else {
-      print('1. 파일이 존재하지 않음');
-      isSaved = false;
     }
 
     notifyListeners();
