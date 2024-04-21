@@ -19,6 +19,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             text: 'favorite',
           ),
         ),
+        body: const SafeArea(
+          child: Column(),
+        ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
             border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
@@ -32,8 +35,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   context.go('/favorites');
               }
             },
-            showSelectedLabels: false,
-            showUnselectedLabels: true,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(icon: Icon(Icons.star, color: LightAppColor.secondaryColor), label: 'Favorites'),

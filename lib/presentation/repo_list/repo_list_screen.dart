@@ -24,20 +24,23 @@ class _RepoListScreenState extends State<RepoListScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: [
-              SizedBox(
-                height: 50,
-                width: 50,
-                child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-              SizedBox(
-                height: 50,
-                width: 100,
-                child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
-              ),
-            ],
+          title: Padding(
+            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
+            child: Row(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
+                ),
+              ],
+            ),
           ),
           actions: const [],
         ),
@@ -74,11 +77,9 @@ class _RepoListScreenState extends State<RepoListScreen> {
                   context.go('/favorites');
               }
             },
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: 'Repository'),
+              BottomNavigationBarItem(icon: Icon(Icons.star), label: 'favorites'),
             ],
           ),
         ),

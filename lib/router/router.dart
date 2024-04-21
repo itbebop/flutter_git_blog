@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/screen/error_screen.dart';
+import 'package:flutter_git_blog/common/screen/splash_screen.dart';
 import 'package:flutter_git_blog/data/data_source/git_data_source.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/data/repository/user_repository_Impl.dart';
@@ -15,6 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
+  initialLocation: '/splash',
   routes: [
     GoRoute(
       path: '/',
@@ -46,6 +48,13 @@ final router = GoRouter(
         create: (context) => FavoriteViewModel(),
         child: const FavoriteScreen(),
       ),
+    ),
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SplashScreen();
+      },
     ),
   ],
   errorBuilder: (context, state) {

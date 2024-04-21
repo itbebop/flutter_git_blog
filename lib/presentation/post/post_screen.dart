@@ -24,17 +24,19 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<PostViewModel>();
-    return Scaffold(
-      appBar: AppBar(
-        title: TextWidget(
-          text: viewModel.totalPath,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: TextWidget(
+            text: viewModel.totalPath,
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Markdown(
-            data: viewModel.decodedResult,
+        body: SafeArea(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.8,
+            child: Markdown(
+              data: viewModel.decodedResult,
+            ),
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/color/light_app_color.dart';
+import 'package:go_router/go_router.dart';
 
 class Error404Screen extends StatelessWidget {
   const Error404Screen({super.key});
@@ -24,7 +25,7 @@ class Error404Screen extends StatelessWidget {
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                   )),
-              onPressed: () {},
+              onPressed: () => context.go('/'),
               child: Text(
                 "Go Home".toUpperCase(),
                 style: const TextStyle(color: Colors.white),
