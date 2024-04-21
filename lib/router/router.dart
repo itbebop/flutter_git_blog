@@ -38,7 +38,7 @@ final router = GoRouter(
     GoRoute(
       path: '/post',
       builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => PostViewModel(postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
+        create: (context) => PostViewModel(context: context, postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
         child: PostScreen(state.extra as String),
       ),
     ),

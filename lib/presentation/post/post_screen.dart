@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_git_blog/common/color/light_app_color.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/presentation/post/post_view_model.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -30,13 +31,24 @@ class _PostScreenState extends State<PostScreen> {
           title: TextWidget(
             text: viewModel.totalPath,
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: IconButton(
+                  onPressed: viewModel.onSave,
+                  icon: viewModel.isSaved == false
+                      ? const Icon(Icons.star)
+                      : const Icon(
+                          Icons.star,
+                          color: LightAppColor.primaryColor,
+                        )),
+            )
+          ],
         ),
-        body: SafeArea(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: Markdown(
-              data: viewModel.decodedResult,
-            ),
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Markdown(
+            data: viewModel.decodedResult,
           ),
         ),
       ),

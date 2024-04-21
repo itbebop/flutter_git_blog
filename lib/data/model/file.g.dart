@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'file.dart';
+part of 'file_info.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -17,8 +17,7 @@ _$FileImpl _$$FileImplFromJson(Map<String, dynamic> json) => _$FileImpl(
       encoding: json['encoding'] as String,
     );
 
-Map<String, dynamic> _$$FileImplToJson(_$FileImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$FileImplToJson(_$FileImpl instance) => <String, dynamic>{
       'name': instance.name,
       'path': instance.path,
       'size': instance.size,

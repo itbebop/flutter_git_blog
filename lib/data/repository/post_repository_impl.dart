@@ -4,7 +4,7 @@ import 'package:flutter_git_blog/data/dto/post_dto/post_dto.dart';
 import 'package:flutter_git_blog/data/mapper/file_mapper.dart';
 import 'package:flutter_git_blog/data/mapper/post_mapper.dart';
 import 'package:flutter_git_blog/data/mapper/repo_mapper.dart';
-import 'package:flutter_git_blog/data/model/file.dart';
+import 'package:flutter_git_blog/data/model/file_info.dart';
 import 'package:flutter_git_blog/data/model/post.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:flutter_git_blog/data/repository/post_repository.dart';
@@ -27,7 +27,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<File> getFile({required String owner, required String repo, required dir}) async {
+  Future<FileInfo> getFile({required String owner, required String repo, required dir}) async {
     final FileDto content = await _postDataSource.getPost(owner: owner, repo: repo, dir: dir);
 
     return content.toFile();

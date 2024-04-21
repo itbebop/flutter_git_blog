@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'file.freezed.dart';
+part 'file_info.freezed.dart';
 part 'file.g.dart';
 
 @freezed
-class File with _$File {
-  const factory File({
+class FileInfo with _$File {
+  const factory FileInfo({
     required String name,
     required String path,
     required num size,
@@ -16,5 +16,5 @@ class File with _$File {
     required String encoding,
   }) = _File;
 
-  factory File.fromJson(Map<String, dynamic> json) => _$FileFromJson(json);
+  factory FileInfo.fromJson(Map<String, dynamic> json) => _$FileInfoFromJson(json);
 }
