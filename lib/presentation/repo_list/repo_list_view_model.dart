@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_git_blog/common/function/debouncer.dart';
 import 'package:flutter_git_blog/data/model/repo.dart';
 import 'package:flutter_git_blog/data/model/user.dart';
 import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
@@ -24,6 +25,8 @@ class RepoListViewModel with ChangeNotifier {
   BuildContext context;
   bool _isLoading = false;
 
+  Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 500));
+
   void userSearch(String id) async {
     _isLoading = true;
     notifyListeners();
@@ -33,21 +36,27 @@ class RepoListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void onSearch(String value, controller) async {
+  void onSearchChanged(String query) {
+    debouncer.run(() async {
+      print('Debouncer 실행: $query');
+      onSearch(query);
+    });
+  }
+
+  void onSearch(String query) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    if (value.contains('/')) {
+    if (query.contains('/')) {
       // 바로 repo 선택
-      onSelectRepo(value);
+      onSelectRepo(query);
     } else {
       // repo만 서치
       _state = state.copyWith(
-        respos: await _postRepositoryImpl.getRepo(value),
+        respos: await _postRepositoryImpl.getRepo(query),
         isLoading: false,
       );
     }
-    queryTextEditingController = controller;
     notifyListeners();
   }
 

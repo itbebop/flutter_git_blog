@@ -90,21 +90,3 @@ class _RepoListScreenState extends State<RepoListScreen> {
     );
   }
 }
-
-class AppBarTextButton extends StatelessWidget {
-  final String text;
-  const AppBarTextButton({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
-      child: Text(
-        text,
-      ),
-    );
-  }
-}
