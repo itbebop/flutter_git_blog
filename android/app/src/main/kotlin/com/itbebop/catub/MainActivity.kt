@@ -1,4 +1,4 @@
-package com.itbebop.flutter_git_blog
+package com.itbebop.catub
 
 import io.flutter.embedding.android.FlutterActivity
 
