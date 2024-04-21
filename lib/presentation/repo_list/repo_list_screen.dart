@@ -21,64 +21,66 @@ class _RepoListScreenState extends State<RepoListScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<RepoListViewModel>();
     final user = viewModel.user;
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            SizedBox(
-              height: 50,
-              width: 50,
-              child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-            SizedBox(
-              height: 50,
-              width: 100,
-              child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
-            ),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              SizedBox(
+                height: 50,
+                width: 50,
+                child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+              SizedBox(
+                height: 50,
+                width: 100,
+                child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
+              ),
+            ],
+          ),
+          actions: const [],
         ),
-        actions: const [],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
-                ),
-                user != null ? UserProfile(user: user) : const SizedBox(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                RepoList(viewModel: viewModel),
-              ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
+                  ),
+                  user != null ? UserProfile(user: user) : const SizedBox(),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  RepoList(viewModel: viewModel),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
-        ),
-        child: BottomNavigationBar(
-          onTap: (value) {
-            switch (value) {
-              case 0:
-                context.go('/');
-              case 1:
-                context.go('/favorites');
-            }
-          },
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: 'Repository'),
-          ],
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
+          ),
+          child: BottomNavigationBar(
+            onTap: (value) {
+              switch (value) {
+                case 0:
+                  context.go('/');
+                case 1:
+                  context.go('/favorites');
+              }
+            },
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: 'Repository'),
+            ],
+          ),
         ),
       ),
     );

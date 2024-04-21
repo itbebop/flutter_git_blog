@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/component/text_widget.dart';
 import 'package:flutter_git_blog/data/model/user.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserProfile extends StatelessWidget {
   final User user;
@@ -120,7 +121,7 @@ class UserProfile extends StatelessWidget {
                               const Icon(Icons.home),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(user.blog),
+                                child: GestureDetector(onTap: _launchUrl, child: Text(user.blog)),
                               )
                             ],
                           )
@@ -133,5 +134,14 @@ class UserProfile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await canLaunchUrl(Uri.parse(user.blog))) {
+      //TODO:이렇게 에러처리하는 것이 맞는지
+      throw Exception('Could not launch ${user.blog}');
+    } else {
+      await launchUrl(Uri.parse(user.blog));
+    }
   }
 }
