@@ -74,7 +74,7 @@ class _BookmarkListScreenState extends State<BookmarkListScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: TextWidget(
-                                        text: e['path'].toString().length > 35 ? '${e['path'].toString().substring(0, 35)}...' : e['path'],
+                                        text: e['path'].toString().length > 30 ? '${e['path'].toString().substring(0, 30)}...' : e['path'],
                                       ),
                                     ),
                                   ],

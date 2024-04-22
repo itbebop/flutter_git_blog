@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_git_blog/common/function/debouncer.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dart';
 
 class SearchRepoBar extends StatelessWidget {
@@ -47,6 +46,7 @@ class SearchRepoBar extends StatelessWidget {
       ),
       textInputAction: TextInputAction.search,
       onFieldSubmitted: (String value) {
+        viewModel.queryText = value;
         viewModel.onSearch(value);
         viewModel.userSearch(value);
       },

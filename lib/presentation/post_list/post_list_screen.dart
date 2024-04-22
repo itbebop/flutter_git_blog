@@ -66,7 +66,7 @@ class _PostListScreenState extends State<PostListScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: TextWidget(
-                                        text: e.title,
+                                        text: e.title.length > 30 ? '${e.title.substring(0, 30)}...' : e.title,
                                         fontColor: LightAppColor.whiteColor,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -102,7 +102,7 @@ class _PostListScreenState extends State<PostListScreen> {
                                               padding: const EdgeInsets.only(left: 8.0),
                                               child: TextWidget(
                                                 // overflow나지 않게
-                                                text: e.title.length > 35 ? '${e.title.substring(0, 35)}...' : e.title,
+                                                text: e.title.length > 30 ? '${e.title.substring(0, 30)}...' : e.title,
                                               ),
                                             ),
                                           ],
