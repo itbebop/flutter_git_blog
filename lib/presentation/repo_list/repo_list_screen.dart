@@ -16,7 +16,6 @@ class RepoListScreen extends StatefulWidget {
 }
 
 class _RepoListScreenState extends State<RepoListScreen> {
-  final _queryTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<RepoListViewModel>();
@@ -53,7 +52,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: SearchRepoBar(queryTextEditingController: _queryTextEditingController, viewModel: viewModel),
+                  child: SearchRepoBar(queryTextEditingController: viewModel.queryTextEditingController, viewModel: viewModel),
                 ),
                 user != null ? UserProfile(user: user) : const SizedBox(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),

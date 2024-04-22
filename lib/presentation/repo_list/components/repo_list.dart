@@ -24,7 +24,7 @@ class RepoList extends StatelessWidget {
                 .map((e) => GestureDetector(
                       onTap: () {
                         viewModel.onSelectRepo(e.name);
-                        viewModel.context.push('/postlist', extra: '${viewModel.queryTextEditingController}/${e.name}');
+                        viewModel.context.push('/postlist', extra: '${viewModel.queryText}/${e.name}');
                       },
                       child: Chip(
                         backgroundColor: LightAppColor.whiteColor,

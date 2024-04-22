@@ -15,13 +15,13 @@ class RepoListViewModel with ChangeNotifier {
       : _postRepositoryImpl = postRepositoryImpl,
         _userRepositoryImpl = userRepositoryImpl;
   Repo? repo;
-
+  final queryTextEditingController = TextEditingController();
   RepoListState _state = const RepoListState();
   RepoListState get state => _state;
   final UserRepositoryImpl _userRepositoryImpl;
   User? user;
   int selectedIndex = 0;
-  String? queryTextEditingController;
+  String? queryText;
   BuildContext context;
   bool _isLoading = false;
 
@@ -39,7 +39,7 @@ class RepoListViewModel with ChangeNotifier {
   void onSearchChanged(String query) {
     debouncer.run(() async {
       print('Debouncer 실행: $query');
-      onSearch(query);
+      queryTextEditingController.value = queryTextEditingController.value.copyWith(text: query);
     });
   }
 
@@ -62,7 +62,9 @@ class RepoListViewModel with ChangeNotifier {
 
   void onSelectRepo(repoName) async {
     String path = repoName;
-    path.contains('/') ? path : path = '$queryTextEditingController/$repoName';
+    print('repoName: $repoName');
+    print('queryText: $queryText');
+    path.contains('/') ? path : path = '$queryText/$repoName';
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
