@@ -28,87 +28,115 @@ class _BookmarkListScreenState extends State<BookmarkListScreen> {
     final viewModel = context.watch<BookmarkViewModel>();
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.1,
-                    child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children: [
-                  Wrap(
-                    spacing: 8.0, // gap between adjacent chips
-                    runSpacing: 4.0, // gap between lines
-                    children: viewModel.bookmarks
-                        .map((e) => GestureDetector(
-                              onTap: () => viewModel.context.push('/post', extra: e['path']),
-                              child: Chip(
-                                backgroundColor: Colors.transparent,
-                                shape: ContinuousRectangleBorder(
-                                  side: const BorderSide(
-                                    color: LightAppColor.primaryColor,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                label: Row(
-                                  children: [
-                                    const Icon(Icons.file_copy_outlined),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: TextWidget(
-                                        text: e['path'].toString().length > 30 ? '${e['path'].toString().substring(0, 30)}...' : e['path'],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  )
-                ],
-              ),
-            ),
-          ),
-          bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
-            ),
-            child: BottomNavigationBar(
-              onTap: (value) {
-                switch (value) {
-                  case 0:
-                    context.go('/');
-                  case 1:
-                    context.go('/bookmarks');
-                }
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Colors.black),
-                  label: 'Home',
+        appBar: AppBar(
+          title: Padding(
+            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
+            child: Row(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/logo.png')),
                 ),
-                BottomNavigationBarItem(icon: Icon(Icons.star, color: LightAppColor.secondaryColor), label: 'Bookmarks'),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: ClipRRect(borderRadius: BorderRadius.circular(12.0), child: Image.asset('assets/images/catub.png')),
+                ),
               ],
             ),
-          )),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                Wrap(
+                    spacing: 8.0, // gap between adjacent chips
+                    runSpacing: 4.0, // gap between lines
+                    children: viewModel.bookmarks.isNotEmpty && viewModel.bookmarks.first != null
+                        ? viewModel.bookmarks
+                            .map((e) => GestureDetector(
+                                  onTap: () => viewModel.context.push('/post', extra: e['path']),
+                                  child: Chip(
+                                    backgroundColor: Colors.transparent,
+                                    shape: ContinuousRectangleBorder(
+                                      side: const BorderSide(
+                                        color: LightAppColor.primaryColor,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    label: Row(
+                                      children: [
+                                        const Icon(Icons.file_copy_outlined),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: TextWidget(
+                                            text: e['path'].toString().length > 30 ? '${e['path'].toString().substring(0, 30)}...' : e['path'],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                            .toList()
+                        : viewModel.bookmarks
+                            .skip(1) // 첫 번째 요소를 스킵합니다.
+                            .map((e) => GestureDetector(
+                                  onTap: () => viewModel.context.push('/post', extra: e['path']),
+                                  child: Chip(
+                                    backgroundColor: Colors.transparent,
+                                    shape: ContinuousRectangleBorder(
+                                      side: const BorderSide(
+                                        color: LightAppColor.primaryColor,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    label: Row(
+                                      children: [
+                                        const Icon(Icons.file_copy_outlined),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: TextWidget(
+                                            text: e['path'].toString().length > 30 ? '${e['path'].toString().substring(0, 30)}...' : e['path'],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                            .toList()),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
+          ),
+          child: BottomNavigationBar(
+            onTap: (value) {
+              switch (value) {
+                case 0:
+                  context.go('/');
+                case 1:
+                  context.go('/bookmarks');
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Colors.black),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.star, color: LightAppColor.secondaryColor), label: 'Bookmarks'),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
