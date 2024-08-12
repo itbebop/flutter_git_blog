@@ -7,6 +7,7 @@ import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:flutter_git_blog/data/repository/user_repository_Impl.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_git_blog/prefs.dart';
 
 class RepoListViewModel with ChangeNotifier {
   final PostRepositoryImpl _postRepositoryImpl;
@@ -24,6 +25,7 @@ class RepoListViewModel with ChangeNotifier {
   String? queryText;
   BuildContext context;
   bool _isLoading = false;
+  List<String> searchHistoryList = [];
 
   Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
@@ -45,7 +47,32 @@ class RepoListViewModel with ChangeNotifier {
 
   void onSearch(String query) async {
     _state = state.copyWith(isLoading: true);
+
     notifyListeners();
+
+    // history 저장
+    // search history가 있는 경우
+    if (Prefs.prefs.getStringList('search_history') != null) {
+      // 검색어 중복이 없는 경우
+      if (!Prefs.prefs.getStringList('search_history')!.contains(query)) {
+        searchHistoryList.insert(0, query);
+        await Prefs.prefs.setStringList('search_history', searchHistoryList);
+        // 검색어 중복이 없는 경우
+      } else {
+        // searchHistoryList에서 중복 제거
+        searchHistoryList = Prefs.prefs.getStringList('search_history') ?? [];
+        searchHistoryList.remove(query);
+        // 최근 검색어 가장 위로 insert
+        searchHistoryList.insert(0, query);
+        // search_history 초기화 후 저장
+        await Prefs.prefs.remove('search_history');
+        await Prefs.prefs.setStringList('search_history', searchHistoryList);
+      }
+      // search history가 없는 경우
+    } else {
+      searchHistoryList.insert(0, query);
+      await Prefs.prefs.setStringList('search_history', searchHistoryList);
+    }
 
     if (query.contains('/')) {
       // 바로 repo 선택
