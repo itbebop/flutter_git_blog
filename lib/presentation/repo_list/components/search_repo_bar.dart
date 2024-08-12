@@ -11,19 +11,19 @@ class SearchRepoBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _queryTextEditingController,
+      onTap: () => viewModel.onTabSearchBar(),
       decoration: const InputDecoration(
-        labelText: 'Insert Owner or Owner/Repository...',
+        labelText: 'Insert [Owner] or [Owner/Repository]',
         labelStyle: TextStyle(color: Color(0xff171717)),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Color(0xff0099FA),
-            width: 3,
+            width: 1,
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.red,
             width: 3,
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -31,7 +31,7 @@ class SearchRepoBar extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Color(0xffD7D7D7),
-            width: 3,
+            width: 1,
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),

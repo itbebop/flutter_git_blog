@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_git_blog/common/color/light_app_color.dart';
 import 'package:flutter_git_blog/presentation/repo_list/components/repo_list.dart';
-import 'package:flutter_git_blog/presentation/repo_list/components/serch_repo_bar.dart';
+import 'package:flutter_git_blog/presentation/repo_list/components/search_repo_bar.dart';
 import 'package:flutter_git_blog/presentation/repo_list/components/user_profile.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dart';
 import 'package:go_router/go_router.dart';
