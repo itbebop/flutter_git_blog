@@ -17,6 +17,12 @@ class RepoListScreen extends StatefulWidget {
 
 class _RepoListScreenState extends State<RepoListScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => {context.read<RepoListViewModel>().onFetch()});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<RepoListViewModel>();
     final user = viewModel.user;
@@ -54,6 +60,67 @@ class _RepoListScreenState extends State<RepoListScreen> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: SearchRepoBar(queryTextEditingController: viewModel.queryTextEditingController, viewModel: viewModel),
                 ),
+                viewModel.isFocused
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: viewModel.searchHistoryList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            minVerticalPadding: 0,
+                            contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
+                            title: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    print('111111');
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Icon(Icons.history),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 8),
+                                          child: Text(
+                                            viewModel.searchHistoryList[index],
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: const Text('title'),
+                                                  content: const Text('content'),
+                                                  actions: [
+                                                    FloatingActionButton.small(
+                                                      onPressed: () {
+                                                        viewModel.onDeleteHistory(index);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text('Yes'),
+                                                    ),
+                                                    FloatingActionButton.small(
+                                                      onPressed: () => Navigator.pop(context),
+                                                      child: const Text('No'),
+                                                    )
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        child: const Icon(Icons.clear),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    : const SizedBox(),
                 user != null ? UserProfile(user: user) : const SizedBox(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 RepoList(viewModel: viewModel),

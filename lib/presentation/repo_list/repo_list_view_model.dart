@@ -25,9 +25,14 @@ class RepoListViewModel with ChangeNotifier {
   String? queryText;
   BuildContext context;
   bool _isLoading = false;
+  bool isFocused = false;
   List<String> searchHistoryList = [];
 
   Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 500));
+
+  void onFetch() {
+    print('isFocused in Fetch: $isFocused');
+  }
 
   void userSearch(String id) async {
     _isLoading = true;
@@ -40,7 +45,6 @@ class RepoListViewModel with ChangeNotifier {
 
   void onSearchChanged(String query) {
     debouncer.run(() async {
-      print('Debouncer 실행: $query');
       queryTextEditingController.value = queryTextEditingController.value.copyWith(text: query);
     });
   }
@@ -102,5 +106,20 @@ class RepoListViewModel with ChangeNotifier {
 
   void onScrolledRepo(index) {
     selectedIndex = index;
+  }
+
+  void onTabSearchBar() async {
+    isFocused = true;
+    searchHistoryList = Prefs.prefs.getStringList('search_history') ?? [];
+    searchHistoryList = searchHistoryList.take(5).toList();
+    notifyListeners();
+  }
+
+  void onDeleteHistory(index) async {
+    searchHistoryList.removeAt(index);
+    // search_history 초기화 후 저장
+    await Prefs.prefs.remove('search_history');
+    await Prefs.prefs.setStringList('search_history', searchHistoryList);
+    notifyListeners();
   }
 }
