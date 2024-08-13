@@ -65,6 +65,7 @@ class SearchRepoBar extends StatelessWidget {
         viewModel.queryText = value;
         viewModel.onSearch(value);
         viewModel.userSearch(value);
+        FocusScope.of(context).unfocus();
       },
       // onChanged: (value) {
       //   viewModel.onSearchChanged(value);
