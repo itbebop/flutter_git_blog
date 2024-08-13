@@ -134,6 +134,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
                       child: RepoList(viewModel: viewModel),
                     );
                   },
+                  childCount: 1,
                 ),
               ),
             ],
