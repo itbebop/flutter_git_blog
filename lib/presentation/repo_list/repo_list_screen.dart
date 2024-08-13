@@ -53,68 +53,90 @@ class _RepoListScreenState extends State<RepoListScreen> {
             ),
             actions: const [],
           ),
-          body: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 24),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: SearchRepoBar(
-                      queryTextEditingController: viewModel.queryTextEditingController,
-                      viewModel: viewModel,
-                      searchFocusNode: searchFocusNode,
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                // forceMaterialTransparency: false,
+                backgroundColor: LightAppColor.whiteColor,
+                pinned: true,
+                snap: false,
+                floating: true,
+                expandedHeight: MediaQuery.of(context).size.height * 0.35,
+                //collapsedHeight: MediaQuery.of(context).size.height * 0.2,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: SearchRepoBar(
+                              queryTextEditingController: viewModel.queryTextEditingController,
+                              viewModel: viewModel,
+                              searchFocusNode: searchFocusNode,
+                            ),
+                          ),
+                          viewModel.isFocused
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: viewModel.searchHistoryList.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      minVerticalPadding: 0,
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
+                                      title: Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              viewModel.queryTextEditingController.text = viewModel.searchHistoryList[index];
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const Icon(Icons.history),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 8),
+                                                    child: Text(
+                                                      viewModel.searchHistoryList[index],
+                                                    ),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    ShowDialog(context, viewModel, index);
+                                                  },
+                                                  child: const Icon(Icons.clear),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : const SizedBox(),
+                          user != null ? UserProfile(user: user) : const SizedBox(),
+                        ],
+                      ),
                     ),
                   ),
-                  viewModel.isFocused
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: viewModel.searchHistoryList.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              minVerticalPadding: 0,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
-                              title: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      viewModel.queryTextEditingController.text = viewModel.searchHistoryList[index];
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Icon(Icons.history),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 8),
-                                            child: Text(
-                                              viewModel.searchHistoryList[index],
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            ShowDialog(context, viewModel, index);
-                                          },
-                                          child: const Icon(Icons.clear),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        )
-                      : const SizedBox(),
-                  user != null ? UserProfile(user: user) : const SizedBox(),
-                  RepoList(viewModel: viewModel),
-                  SizedBox(height: MediaQuery.of(context).size.height * 1),
-                ],
+                ),
               ),
-            ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: RepoList(viewModel: viewModel),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (value) {

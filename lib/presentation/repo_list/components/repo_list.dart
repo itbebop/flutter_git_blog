@@ -14,10 +14,11 @@ class RepoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.47,
-      child: SingleChildScrollView(
-        child: Wrap(
+    return ListView(
+      shrinkWrap: true,
+      primary: false,
+      children: [
+        Wrap(
             spacing: 8.0, // gap between adjacent chips
             runSpacing: 4.0, // gap between lines
             children: viewModel.state.respos
@@ -40,8 +41,8 @@ class RepoList extends StatelessWidget {
                         ),
                       ),
                     ))
-                .toList()),
-      ),
+                .toList())
+      ],
     );
   }
 }
