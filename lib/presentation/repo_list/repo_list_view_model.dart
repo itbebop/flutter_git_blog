@@ -109,7 +109,6 @@ class RepoListViewModel with ChangeNotifier {
   }
 
   void onTabSearchBar() async {
-    isFocused = true;
     searchHistoryList = Prefs.prefs.getStringList('search_history') ?? [];
     searchHistoryList = searchHistoryList.take(5).toList();
     notifyListeners();

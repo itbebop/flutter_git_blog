@@ -4,28 +4,16 @@ import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dar
 class SearchRepoBar extends StatelessWidget {
   final TextEditingController _queryTextEditingController;
   final RepoListViewModel viewModel;
+  final FocusNode searchFocusNode;
 
-  const SearchRepoBar({super.key, required TextEditingController queryTextEditingController, required this.viewModel}) : _queryTextEditingController = queryTextEditingController;
+  const SearchRepoBar({super.key, required TextEditingController queryTextEditingController, required this.viewModel, required this.searchFocusNode})
+      : _queryTextEditingController = queryTextEditingController;
 
   @override
   Widget build(BuildContext context) {
-    FocusNode searchFocusNode = FocusNode();
-    viewModel.isFocused = searchFocusNode.hasFocus;
-    searchFocusNode.addListener(() {
-      // viewModel.isFocused = searchFocusNode.hasFocus;
-      if (searchFocusNode.hasFocus) {
-        // 포커스를 얻었을 때, history를 보여줌
-        // 키보드가 올라오면서 순간적으로 focus가 없어지는 문제가 있어 delay줌
-        Future.delayed(const Duration(milliseconds: 500), () {
-          viewModel.onTabSearchBar();
-        });
-      } else {
-        if (!searchFocusNode.hasFocus && searchFocusNode.context != null) {
-          viewModel.isFocused = false;
-        }
-      }
+    _queryTextEditingController.addListener(() {
+      viewModel.onSearchChanged(_queryTextEditingController.text);
     });
-
     return TextFormField(
       controller: _queryTextEditingController,
       focusNode: searchFocusNode,
@@ -78,9 +66,9 @@ class SearchRepoBar extends StatelessWidget {
         viewModel.onSearch(value);
         viewModel.userSearch(value);
       },
-      onChanged: (value) {
-        viewModel.onSearchChanged(value);
-      },
+      // onChanged: (value) {
+      //   viewModel.onSearchChanged(value);
+      // },
     );
   }
 }

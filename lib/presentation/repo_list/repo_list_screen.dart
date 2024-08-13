@@ -16,6 +16,7 @@ class RepoListScreen extends StatefulWidget {
 }
 
 class _RepoListScreenState extends State<RepoListScreen> {
+  FocusNode searchFocusNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -26,6 +27,8 @@ class _RepoListScreenState extends State<RepoListScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<RepoListViewModel>();
     final user = viewModel.user;
+    viewModel.isFocused = searchFocusNode.hasFocus;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -58,7 +61,11 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: SearchRepoBar(queryTextEditingController: viewModel.queryTextEditingController, viewModel: viewModel),
+                  child: SearchRepoBar(
+                    queryTextEditingController: viewModel.queryTextEditingController,
+                    viewModel: viewModel,
+                    searchFocusNode: searchFocusNode,
+                  ),
                 ),
                 viewModel.isFocused
                     ? ListView.builder(
