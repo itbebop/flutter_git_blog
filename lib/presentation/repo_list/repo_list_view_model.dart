@@ -24,7 +24,7 @@ class RepoListViewModel with ChangeNotifier {
   int selectedIndex = 0;
   String? queryText;
   BuildContext context;
-  bool _isLoading = false;
+  //bool _isLoading = false;
   bool isFocused = false;
   List<String> searchHistoryList = [];
 
@@ -35,11 +35,11 @@ class RepoListViewModel with ChangeNotifier {
   }
 
   void userSearch(String id) async {
-    _isLoading = true;
+    // _isLoading = true;
     notifyListeners();
     // repo까지 같이 검색하는 경우엔 아무것도 하지 않음
     !id.contains('/') ? user = await _userRepositoryImpl.getUser(id) : '';
-    _isLoading = false;
+    // _isLoading = false;
     notifyListeners();
   }
 
