@@ -26,6 +26,7 @@ class RepoListViewModel with ChangeNotifier {
   BuildContext context;
   //bool _isLoading = false;
   bool isFocused = false;
+  bool isMoreHistory = false;
   List<String> searchHistoryList = [];
 
   Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 500));
@@ -103,8 +104,9 @@ class RepoListViewModel with ChangeNotifier {
   }
 
   void onTabSearchBar() async {
-    searchHistoryList = Prefs.prefs.getStringList('search_history') ?? [];
+    loadMoreSearchHistory();
     searchHistoryList = searchHistoryList.take(5).toList();
+    isMoreHistory = false;
     notifyListeners();
   }
 
@@ -113,6 +115,12 @@ class RepoListViewModel with ChangeNotifier {
     // search_history 초기화 후 저장
     await Prefs.prefs.remove('search_history');
     await Prefs.prefs.setStringList('search_history', searchHistoryList);
+    notifyListeners();
+  }
+
+  void loadMoreSearchHistory() {
+    searchHistoryList = Prefs.prefs.getStringList('search_history') ?? [];
+    isMoreHistory = true;
     notifyListeners();
   }
 }

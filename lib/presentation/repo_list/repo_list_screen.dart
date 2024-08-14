@@ -18,6 +18,11 @@ class RepoListScreen extends StatefulWidget {
 
 class _RepoListScreenState extends State<RepoListScreen> {
   FocusNode searchFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController(); // ScrollController 생성
+
+  void moveScroll(value) {
+    _scrollController.animateTo(value.toDouble(), duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +65,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
                 //collapsedHeight: MediaQuery.of(context).size.height * 0.2,
                 flexibleSpace: FlexibleSpaceBar(
                   background: SingleChildScrollView(
+                    controller: _scrollController,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -74,44 +80,64 @@ class _RepoListScreenState extends State<RepoListScreen> {
                             ),
                           ),
                           viewModel.isFocused
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: viewModel.searchHistoryList.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      minVerticalPadding: 0,
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
-                                      title: Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              viewModel.queryTextEditingController.text = viewModel.searchHistoryList[index];
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                const Icon(Icons.history),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(left: 8),
-                                                    child: Text(
-                                                      viewModel.searchHistoryList[index],
+                              ? Column(
+                                  children: [
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: viewModel.searchHistoryList.length + 1, // +1 to include the "더보기" button
+                                      itemBuilder: (context, index) {
+                                        if (index == viewModel.searchHistoryList.length) {
+                                          // "더보기" 버튼을 리스트의 마지막에 추가
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 10),
+                                            child: !viewModel.isMoreHistory
+                                                ? ElevatedButton(
+                                                    onPressed: () {
+                                                      viewModel.loadMoreSearchHistory();
+                                                    },
+                                                    child: const Text('더보기'))
+                                                : const SizedBox(),
+                                          );
+                                        }
+
+                                        return ListTile(
+                                          minVerticalPadding: 0,
+                                          contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
+                                          title: Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  viewModel.queryTextEditingController.text = viewModel.searchHistoryList[index];
+                                                  moveScroll(0);
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    const Icon(Icons.history),
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(left: 8),
+                                                        child: Text(
+                                                          viewModel.searchHistoryList[index],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        ShowDialog(context, viewModel, index);
+                                                      },
+                                                      child: const Icon(Icons.clear),
+                                                    ),
+                                                  ],
                                                 ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    ShowDialog(context, viewModel, index);
-                                                  },
-                                                  child: const Icon(Icons.clear),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  },
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 )
                               : const SizedBox(),
                           user != null ? UserProfile(user: user) : const SizedBox(),
