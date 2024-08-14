@@ -88,15 +88,17 @@ class _RepoListScreenState extends State<RepoListScreen> {
                                       itemCount: viewModel.searchHistoryList.length + 1, // +1 to include the "더보기" button
                                       itemBuilder: (context, index) {
                                         if (index == viewModel.searchHistoryList.length) {
-                                          // "더보기" 버튼을 리스트의 마지막에 추가
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(vertical: 10),
                                             child: !viewModel.isMoreHistory
-                                                ? ElevatedButton(
-                                                    onPressed: () {
-                                                      viewModel.loadMoreSearchHistory();
-                                                    },
-                                                    child: const Text('더보기'))
+                                                ? Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 24\\16),
+                                                    child: ElevatedButton(
+                                                        onPressed: () {
+                                                          viewModel.loadMoreSearchHistory();
+                                                        },
+                                                        child: const Text('see more')),
+                                                  )
                                                 : const SizedBox(),
                                           );
                                         }
