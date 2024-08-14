@@ -141,25 +141,6 @@ class _PostListScreenState extends State<PostListScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: LightAppColor.greyColor, width: 0.5)), // 라인효과
-          ),
-          child: BottomNavigationBar(
-            onTap: (value) {
-              switch (value) {
-                case 0:
-                  context.go('/');
-                case 1:
-                  context.go('/bookmarks');
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home, color: LightAppColor.secondaryColor), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.star), label: 'bookmarks'),
-            ],
-          ),
-        ),
       ),
     );
   }

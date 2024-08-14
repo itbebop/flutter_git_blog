@@ -18,35 +18,91 @@ import 'package:provider/provider.dart';
 final router = GoRouter(
   initialLocation: '/splash',
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => RepoListViewModel(
-            context: context, //TODO: context여기서 Viewmodel로 보내도 되는지, 화면 이동 등
-            userRepositoryImpl: UserRepositoryImpl(GitDataSource()),
-            postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
-        child: const RepoListScreen(),
-      ),
+    ShellRoute(
+      navigatorKey: GlobalKey<NavigatorState>(),
+      builder: (context, state, child) {
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _calculateCurrentIndex(state.uri.toString()),
+            onTap: (value) {
+              switch (value) {
+                case 0:
+                  context.go('/'); // Home
+                  break;
+                case 1:
+                  context.go('/bookmarks'); // Bookmarks
+                  break;
+                case 2:
+                  context.go('/license'); // License
+                  break;
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Colors.black),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.star, color: Colors.black),
+                label: 'Bookmarks',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.people, color: Colors.black),
+                label: 'License',
+              ),
+            ],
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black,
+          ),
+        );
+      },
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => ChangeNotifierProvider(
+            create: (context) => RepoListViewModel(
+              context: context,
+              userRepositoryImpl: UserRepositoryImpl(GitDataSource()),
+              postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource()),
+            ),
+            child: const RepoListScreen(),
+          ),
+        ),
+        GoRoute(
+          path: '/bookmarks',
+          builder: (context, state) => ChangeNotifierProvider(
+            create: (context) => BookmarkViewModel(context: context),
+            child: const BookmarkListScreen(),
+          ),
+        ),
+        GoRoute(
+          path: '/license',
+          name: 'license',
+          builder: (BuildContext context, GoRouterState state) {
+            return const LicensePage();
+          },
+        ),
+      ],
     ),
     GoRoute(
       path: '/postlist',
       builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => PostListViewModel(context: context, postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
+        create: (context) => PostListViewModel(
+          context: context,
+          postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource()),
+        ),
         child: PostListScreen(state.extra as String),
       ),
     ),
     GoRoute(
       path: '/post',
       builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => PostViewModel(context: context, postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource())),
+        create: (context) => PostViewModel(
+          context: context,
+          postRepositoryImpl: PostRepositoryImpl(postDataSource: GitDataSource()),
+        ),
         child: PostScreen(state.extra as String),
-      ),
-    ),
-    GoRoute(
-      path: '/bookmarks',
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => BookmarkViewModel(context: context),
-        child: const BookmarkListScreen(),
       ),
     ),
     GoRoute(
@@ -62,3 +118,13 @@ final router = GoRouter(
     return const Error404Screen();
   },
 );
+
+int _calculateCurrentIndex(String location) {
+  if (location == '/bookmarks') {
+    return 1;
+  }
+  if (location == '/license') {
+    return 2;
+  }
+  return 0;
+}

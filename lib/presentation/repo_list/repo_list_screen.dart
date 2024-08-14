@@ -162,44 +162,6 @@ class _RepoListScreenState extends State<RepoListScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          onTap: (value) {
-            switch (value) {
-              case 0:
-                context.go('/');
-              case 1:
-                context.go('/bookmarks');
-
-              case 2:
-                context.push('/license');
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: LightAppColor.secondaryColor,
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.star,
-                  color: Colors.black,
-                ),
-                label: 'Bookmarks'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.people,
-                  color: Colors.black,
-                ),
-                label: 'license'),
-          ],
-          selectedItemColor: LightAppColor.secondaryColor,
-          unselectedItemColor: Colors.black,
-          type: BottomNavigationBarType.fixed,
-        ),
       ),
     );
   }
