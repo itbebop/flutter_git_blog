@@ -30,10 +30,6 @@ class RepoListViewModel with ChangeNotifier {
 
   Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
-  void onFetch() {
-    print('isFocused in Fetch: $isFocused');
-  }
-
   void userSearch(String id) async {
     // _isLoading = true;
     notifyListeners();
@@ -93,8 +89,6 @@ class RepoListViewModel with ChangeNotifier {
 
   void onSelectRepo(repoName) async {
     String path = repoName;
-    print('repoName: $repoName');
-    print('queryText: $queryText');
     path.contains('/') ? path : path = '$queryText/$repoName';
     _state = state.copyWith(isLoading: true);
     notifyListeners();

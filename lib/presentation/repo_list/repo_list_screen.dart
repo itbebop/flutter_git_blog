@@ -18,11 +18,6 @@ class RepoListScreen extends StatefulWidget {
 
 class _RepoListScreenState extends State<RepoListScreen> {
   FocusNode searchFocusNode = FocusNode();
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => {context.read<RepoListViewModel>().onFetch()});
-  }
 
   @override
   Widget build(BuildContext context) {

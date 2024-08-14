@@ -14,9 +14,7 @@ class RepoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      primary: false,
+    return Column(
       children: [
         Wrap(
             spacing: 8.0, // gap between adjacent chips
@@ -41,7 +39,10 @@ class RepoList extends StatelessWidget {
                         ),
                       ),
                     ))
-                .toList())
+                .toList()),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        )
       ],
     );
   }

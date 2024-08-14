@@ -76,7 +76,6 @@ class PostViewModel with ChangeNotifier {
       String contents = await file.readAsString();
       // 파일의 내용을 안전하게 처리하기 위한 수정
       dynamic decoded = jsonDecode(contents);
-      print('4. decoded.runtimeType: ${decoded.runtimeType}');
 
       if (decoded is List) {
         bookmarks = decoded;
@@ -88,11 +87,9 @@ class PostViewModel with ChangeNotifier {
 
       if (existingBookmark != null) {
         bookmarks.removeWhere((bookmark) => bookmark['path'] == totalPath);
-        print('즐겨찾기 삭제됨');
         isSaved = false;
       } else {
         bookmarks.add({'path': totalPath});
-        print('즐겨찾기 저장됨');
         isSaved = true;
       }
       // SnackBar 메시지 업데이트
@@ -132,13 +129,11 @@ class PostViewModel with ChangeNotifier {
       String existingContent = await targetFile.readAsString();
       // JSON 디코딩 결과가 리스트인지 확인
       dynamic decoded = jsonDecode(existingContent);
-      print(decoded);
       if (decoded is List) {
         existingList = decoded;
       } else {
         // 디코딩된 데이터가 리스트가 아닌 경우, 적절한 처리가 필요
         existingList = [];
-        print("Error: Expected a list, but got a different type.======");
       }
     }
     // 경로가 이미 리스트에 존재하는지 확인

@@ -19,19 +19,15 @@ class SearchRepoBar extends StatelessWidget {
       focusNode: searchFocusNode,
       // autofocus: true,
       onTap: () => viewModel.onTabSearchBar(),
+      //textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15),
         labelText: 'Insert [Owner] or [Owner/Repository]',
-        labelStyle: const TextStyle(color: Color(0xff171717)),
+        labelStyle: const TextStyle(color: Colors.black54),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Color(0xff0099FA),
             width: 1,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 3,
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
@@ -42,21 +38,16 @@ class SearchRepoBar extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        disabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.blueGrey,
-            width: 3,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(0)),
-        ),
-        // border: const UnderlineInputBorder(),
         suffix: GestureDetector(
           onTap: () {
             _queryTextEditingController.clear();
           },
           child: const Padding(
             padding: EdgeInsets.only(top: 10.0),
-            child: Icon(Icons.clear),
+            child: Icon(
+              Icons.clear,
+              size: 20,
+            ),
           ),
         ),
       ),
@@ -67,9 +58,9 @@ class SearchRepoBar extends StatelessWidget {
         viewModel.userSearch(value);
         FocusScope.of(context).unfocus();
       },
-      // onChanged: (value) {
-      //   viewModel.onSearchChanged(value);
-      // },
+      onChanged: (value) {
+        viewModel.onSearchChanged(value);
+      },
     );
   }
 }
