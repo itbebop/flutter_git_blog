@@ -48,3 +48,4 @@ debug.keystore
 google-services.json
 ios/firebase_app_id_file.json
 android_keystore.jks
+keystore.*
