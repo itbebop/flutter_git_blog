@@ -7,25 +7,31 @@ import 'package:flutter_git_blog/data/repository/post_repository_impl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-Future<List<dynamic>> readFavorites() async {
-  const String exPath = '/storage/emulated/0/Download';
-  final file = File('$exPath/catub.json');
-  String contents;
-  dynamic decoded;
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+  return directory.path;
+}
 
-  // 저장소 권한 요청
-  if (await _requestStoragePermission()) {
-    // 파일 존재 여부 확인 후 읽기
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/catub.json');
+}
+
+Future<List<dynamic>> readFavorites() async {
+  try {
+    final file = await _localFile;
+    dynamic decoded = [];
     if (await file.exists()) {
-      contents = await file.readAsString();
+      print('### readFavorites: file exists');
+      // Read the file
+      final String contents = await file.readAsString();
       decoded = jsonDecode(contents);
     }
-  } else {
-    throw Exception("저장소 접근 권한이 거부되었습니다.");
+    List<dynamic> bookmarks = decoded is List ? decoded : [];
+    return bookmarks;
+  } catch (e) {
+    throw Exception('#### error readFavorites: $e');
   }
-
-  List<dynamic> bookmarks = decoded is List ? decoded : [];
-  return bookmarks;
 }
 
 // 저장소 권한 요청 함수
@@ -49,30 +55,35 @@ class PostViewModel with ChangeNotifier {
   String totalPath = '';
   String dir = '';
   BuildContext context;
-  String exPath = '/storage/emulated/0/Download';
+  String exPath = getApplicationDocumentsDirectory().toString();
   bool isSaved = false;
   List<dynamic> bookmarks = [];
+
   void onFetch(String path) async {
-    List pathList = path.split('/');
-    String owner = pathList[0];
-    String repo = pathList[1];
+    try {
+      List pathList = path.split('/');
+      String owner = pathList[0];
+      String repo = pathList[1];
 
-    for (int i = 2; i < pathList.length; i++) {
-      dir += '/${pathList[i]}';
+      for (int i = 2; i < pathList.length; i++) {
+        dir += '/${pathList[i]}';
+      }
+      totalPath = '$owner/$repo$dir';
+      // 즐겨찾기 읽어옴
+      bookmarks = await readFavorites();
+      //TODO:타입 수정해야함
+      var existingBookmark = bookmarks.firstWhere((bookmark) => bookmark['path'] == totalPath, orElse: () => null);
+      isSaved = existingBookmark != null;
+
+      fileInfo = await _postRepositoryImpl.getFile(owner: owner, repo: repo, dir: dir);
+      if (fileInfo != null) {
+        decodedResult = base64Decode(fileInfo!.content);
+      }
+
+      notifyListeners();
+    } catch (e) {
+      print('error onFetch: $e');
     }
-    totalPath = '$owner/$repo$dir';
-    // 즐겨찾기 읽어옴
-    bookmarks = await readFavorites();
-    //TODO:타입 수정해야함
-    var existingBookmark = bookmarks.firstWhere((bookmark) => bookmark['path'] == totalPath, orElse: () => null);
-    isSaved = existingBookmark != null;
-
-    fileInfo = await _postRepositoryImpl.getFile(owner: owner, repo: repo, dir: dir);
-    if (fileInfo != null) {
-      decodedResult = base64Decode(fileInfo!.content);
-    }
-
-    notifyListeners();
   }
 
   String base64Decode(base64EncodedString) {
@@ -113,6 +124,7 @@ class PostViewModel with ChangeNotifier {
       }
       // SnackBar 메시지 업데이트
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isSaved ? '$exPath에 즐겨찾기가 저장되었습니다!' : '$exPath에서 $dir이 삭제되었습니다!')));
+      print('### existingBookmark: $existingBookmark');
 
       await file.writeAsString(jsonEncode(bookmarks));
     } else {
@@ -130,13 +142,14 @@ class PostViewModel with ChangeNotifier {
       await Permission.storage.request();
     }
 
-    Directory directory;
-    if (Platform.isAndroid) {
-      directory = Directory("/storage/emulated/0/Download");
-    } else {
-      directory = await getApplicationDocumentsDirectory();
-    }
+    // Directory directory;
+    // if (Platform.isAndroid) {
+    //   directory = Directory("/storage/emulated/0/Download");
+    // } else {
+    //   directory = await getApplicationDocumentsDirectory();
+    // }
 
+    final directory = await getApplicationDocumentsDirectory();
     exPath = directory.path;
 
     // 파일 경로 설정
