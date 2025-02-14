@@ -5,7 +5,6 @@ import 'package:flutter_git_blog/presentation/repo_list/components/repo_list.dar
 import 'package:flutter_git_blog/presentation/repo_list/components/search_repo_bar.dart';
 import 'package:flutter_git_blog/presentation/repo_list/components/user_profile.dart';
 import 'package:flutter_git_blog/presentation/repo_list/repo_list_view_model.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:provider/provider.dart';
 

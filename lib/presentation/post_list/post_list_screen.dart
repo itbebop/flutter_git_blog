@@ -33,15 +33,16 @@ class _PostListScreenState extends State<PostListScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-            title: TextWidget(
-          text: viewModel.totalPath,
-        )),
+        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                TextWidget(
+                  text: viewModel.totalPath,
+                ),
                 Wrap(
                     spacing: 8.0, // gap between adjacent chips
                     runSpacing: 4.0, // gap between lines
