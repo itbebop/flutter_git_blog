@@ -8,18 +8,37 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<List<dynamic>> readFavorites() async {
-  //TODO: 함수는 favorite화면에서도 써서 static으로 했는데, 변수들도 static으로 설정해도 될지
-  const String exPath = '/storage/emulated/0/Download'; //TODO: default로 어떻게 설정해야할지
-  // 저장된 파일을 읽고 isSaved 상태를 업데이트
+  const String exPath = '/storage/emulated/0/Download';
   final file = File('$exPath/catub.json');
   String contents;
-  dynamic decoded; //TODO:타입 수정해야함
-  if (await file.exists()) {
-    contents = await file.readAsString();
-    decoded = jsonDecode(contents);
+  dynamic decoded;
+
+  // 저장소 권한 요청
+  if (await _requestStoragePermission()) {
+    // 파일 존재 여부 확인 후 읽기
+    if (await file.exists()) {
+      contents = await file.readAsString();
+      decoded = jsonDecode(contents);
+    }
+  } else {
+    throw Exception("저장소 접근 권한이 거부되었습니다.");
   }
+
   List<dynamic> bookmarks = decoded is List ? decoded : [];
   return bookmarks;
+}
+
+// 저장소 권한 요청 함수
+Future<bool> _requestStoragePermission() async {
+  // 일반 저장소 권한 요청
+  if (await Permission.storage.request().isGranted) {
+    return true;
+  }
+  // Android 11(API 30) 이상에서 전체 저장소 접근 권한 요청
+  if (await Permission.manageExternalStorage.request().isGranted) {
+    return true;
+  }
+  return false; // 권한 거부 시 false 반환
 }
 
 class PostViewModel with ChangeNotifier {
